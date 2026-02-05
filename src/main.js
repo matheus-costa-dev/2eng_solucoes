@@ -1,3 +1,6 @@
+import './style.css';
+import '@fortawesome/fontawesome-free/css/all.min.css';
+
 // --- LÓGICA DE TEMA (DARK MODE) ---
 function toggleTheme() {
     const html = document.documentElement;
