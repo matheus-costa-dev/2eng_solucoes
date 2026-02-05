@@ -107,3 +107,20 @@ window.addEventListener('scroll', function () {
     }
     lastScrollTop = scrollTop;
 });
+
+// Adicione isso ao final do seu main.js
+document.addEventListener('DOMContentLoaded', () => {
+    // Seleciona todos os botões que têm a classe filter-btn
+    const filterButtons = document.querySelectorAll('.filter-btn');
+
+    filterButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            // Pega a categoria que está no atributo data-filter do botão
+            const category = button.getAttribute('data-filter');
+            filterServices(category);
+        });
+    });
+
+    // Inicia com uma categoria padrão
+    filterServices('engenharia');
+});
