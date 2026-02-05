@@ -494,24 +494,27 @@
 
                     <!-- Formulário -->
                     <div class="lg:col-span-2">
-                        <form class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <input type="text" placeholder="Seu nome"
-                                class="w-full bg-slate-800 dark:bg-brand-card border border-slate-700 dark:border-slate-700 p-4 rounded-xl focus:outline-none focus:border-brand-primary transition-all text-white outline-none">
-                            <input type="email" placeholder="Seu email"
-                                class="w-full bg-slate-800 dark:bg-brand-card border border-slate-700 dark:border-slate-700 p-4 rounded-xl focus:outline-none focus:border-brand-primary transition-all text-white outline-none">
-                            <select
-                                class="w-full bg-slate-800 dark:bg-brand-card border border-slate-700 dark:border-slate-700 p-4 rounded-xl focus:outline-none focus:border-brand-primary transition-all text-white outline-none md:col-span-2 text-gray-400">
-                                <option value="">Selecione o serviço de interesse...</option><a href="#"
-                                    class="hover:text-brand-accent transition-colors"><i class="fab fa-instagram"></i></a>
+                        <form action="https://formspree.io/f/mkovwvdp" method="POST" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <input type="text" name="nome" placeholder="Seu nome" required
+                                   class="w-full bg-slate-800 dark:bg-brand-card border border-slate-700 dark:border-slate-700 p-4 rounded-xl focus:outline-none focus:border-brand-primary transition-all text-white outline-none">
+
+                            <input type="email" name="email" placeholder="Seu email" required
+                                   class="w-full bg-slate-800 dark:bg-brand-card border border-slate-700 dark:border-slate-700 p-4 rounded-xl focus:outline-none focus:border-brand-primary transition-all text-white outline-none">
+
+                            <select name="servico" required
+                                    class="w-full bg-slate-800 dark:bg-brand-card border border-slate-700 dark:border-slate-700 p-4 rounded-xl focus:outline-none focus:border-brand-primary transition-all text-white outline-none md:col-span-2 text-gray-400">
+                                <option value="">Selecione o serviço de interesse...</option>
                                 <option value="obras">Obras e Reformas</option>
                                 <option value="laudos">Laudos e Perícias</option>
                                 <option value="manutencao">Manutenção Predial</option>
                                 <option value="outros">Outros</option>
                             </select>
-                            <textarea rows="4" placeholder="Detalhes do projeto..."
-                                class="w-full bg-slate-800 dark:bg-brand-card border border-slate-700 dark:border-slate-700 p-4 rounded-xl focus:outline-none focus:border-brand-primary transition-all text-white outline-none md:col-span-2"></textarea>
+
+                            <textarea name="mensagem" rows="4" placeholder="Detalhes do projeto..." required
+                                      class="w-full bg-slate-800 dark:bg-brand-card border border-slate-700 dark:border-slate-700 p-4 rounded-xl focus:outline-none focus:border-brand-primary transition-all text-white outline-none md:col-span-2"></textarea>
+
                             <button type="submit"
-                                class="md:col-span-2 bg-brand-primary hover:bg-blue-900 py-4 rounded-xl font-bold text-lg transition-all shadow-lg hover:shadow-blue-500/20 text-white">
+                                    class="md:col-span-2 bg-brand-primary hover:bg-blue-900 py-4 rounded-xl font-bold text-lg transition-all shadow-lg hover:shadow-blue-500/20 text-white">
                                 Enviar Mensagem
                             </button>
                         </form>
