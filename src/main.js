@@ -394,6 +394,9 @@ function closeServiceModal() {
   }, 300); // Tempo da transição
 }
 
+// --- LOGICA DO CARROSSEL MODAL COM LOOP INFINITO ---
+let isModalTransitioning = false;
+
 function renderModalCarousel() {
   const track = document.getElementById('modal-carousel-track');
   const dotsContainer = document.getElementById('modal-carousel-dots');
@@ -402,31 +405,64 @@ function renderModalCarousel() {
   track.innerHTML = '';
   dotsContainer.innerHTML = '';
 
-  // Criar Slides
-  currentModalImages.forEach((imgSrc, index) => {
+  // Clonar último e primeiro slide para efeito de loop infinito
+  const slidesWithClones = [
+    currentModalImages[currentModalImages.length - 1], // Clone do último
+    ...currentModalImages,
+    currentModalImages[0] // Clone do primeiro
+  ];
+
+  // Criar Slides (incluindo clones)
+  slidesWithClones.forEach((imgSrc) => {
     const slide = document.createElement('div');
-    slide.className = 'min-w-full h-full bg-cover bg-center';
+    slide.className = 'min-w-full h-full bg-cover bg-center shrink-0'; // Adicionado shrink-0
     slide.style.backgroundImage = `url('${imgSrc}')`;
     track.appendChild(slide);
+  });
 
-    // Criar Dots
+  // Criar Dots (apenas para imagens reais)
+  currentModalImages.forEach((_, index) => {
     const dot = document.createElement('button');
     dot.className = `w-2 h-2 rounded-full transition-all ${index === 0 ? 'bg-white w-6' : 'bg-white/50 hover:bg-white/80'}`;
     dot.onclick = () => goToModalSlide(index);
     dotsContainer.appendChild(dot);
   });
 
-  updateModalCarouselPosition();
+  // Resetar estado
+  isModalTransitioning = false;
+  // Começar no índice 1 (primeiro slide real) pois o índice 0 é o clone do último
+  currentModalSlideIndex = 1;
+
+  // Posicionar sem animação inicial
+  track.style.transition = 'none';
+  track.style.transform = `translateX(-${currentModalSlideIndex * 100}%)`;
+
+  // Forçar reflow
+  track.offsetHeight;
+
+  // Reabilitar transição
+  track.style.transition = 'transform 0.5s ease-out';
+
+  updateModalDots();
 }
 
 function updateModalCarouselPosition() {
   const track = document.getElementById('modal-carousel-track');
   track.style.transform = `translateX(-${currentModalSlideIndex * 100}%)`;
+}
 
-  // Atualizar dots
+function updateModalDots() {
   const dots = document.getElementById('modal-carousel-dots').children;
+  // O índice visual real é currentModalSlideIndex - 1
+  // Se estiver no clone final (índice N+1), visualmente é o slide 0
+  // Se estiver no clone inicial (índice 0), visualmente é o slide N-1
+  let visualIndex = currentModalSlideIndex - 1;
+
+  if (visualIndex < 0) visualIndex = currentModalImages.length - 1;
+  if (visualIndex >= currentModalImages.length) visualIndex = 0;
+
   Array.from(dots).forEach((dot, index) => {
-    if (index === currentModalSlideIndex) {
+    if (index === visualIndex) {
       dot.className = 'w-6 h-2 rounded-full transition-all bg-white';
     } else {
       dot.className = 'w-2 h-2 rounded-full transition-all bg-white/50 hover:bg-white/80';
@@ -435,18 +471,60 @@ function updateModalCarouselPosition() {
 }
 
 function nextModalSlide() {
-  currentModalSlideIndex = (currentModalSlideIndex + 1) % currentModalImages.length;
+  if (isModalTransitioning) return;
+
+  const track = document.getElementById('modal-carousel-track');
+  isModalTransitioning = true;
+  currentModalSlideIndex++;
+
+  track.style.transition = 'transform 0.5s ease-out';
   updateModalCarouselPosition();
+  updateModalDots();
+
+  // Se chegou no clone do primeiro (último item do array de slides)
+  if (currentModalSlideIndex === currentModalImages.length + 1) {
+    setTimeout(() => {
+      track.style.transition = 'none';
+      currentModalSlideIndex = 1; // Pular para o primeiro slide real
+      updateModalCarouselPosition();
+      isModalTransitioning = false;
+    }, 500); // Esperar o tempo da transição
+  } else {
+    setTimeout(() => isModalTransitioning = false, 500);
+  }
 }
 
 function prevModalSlide() {
-  currentModalSlideIndex = (currentModalSlideIndex - 1 + currentModalImages.length) % currentModalImages.length;
+  if (isModalTransitioning) return;
+
+  const track = document.getElementById('modal-carousel-track');
+  isModalTransitioning = true;
+  currentModalSlideIndex--;
+
+  track.style.transition = 'transform 0.5s ease-out';
   updateModalCarouselPosition();
+  updateModalDots();
+
+  // Se chegou no clone do último (primeiro item do array de slides)
+  if (currentModalSlideIndex === 0) {
+    setTimeout(() => {
+      track.style.transition = 'none';
+      currentModalSlideIndex = currentModalImages.length; // Pular para o último slide real
+      updateModalCarouselPosition();
+      isModalTransitioning = false;
+    }, 500);
+  } else {
+    setTimeout(() => isModalTransitioning = false, 500);
+  }
 }
 
 function goToModalSlide(index) {
-  currentModalSlideIndex = index;
+  if (isModalTransitioning) return;
+  currentModalSlideIndex = index + 1; // +1 por causa do clone inicial
+  const track = document.getElementById('modal-carousel-track');
+  track.style.transition = 'transform 0.5s ease-out';
   updateModalCarouselPosition();
+  updateModalDots();
 }
 
 // Inicializar Event Listeners dos Cards
