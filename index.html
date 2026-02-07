@@ -62,9 +62,16 @@
     <section id="inicio" class="relative h-screen w-full overflow-hidden bg-brand-dark">
 
         <!-- Slide 1 -->
-        <div class="carousel-item active absolute inset-0 items-center justify-center text-center px-4 bg-cover bg-center"
-            style="background-image: url('/carrousel/img1.png');">
-            <div class="absolute inset-0 bg-brand-dark/70"></div> <!-- Escurecido com a base dark -->
+        <div class="carousel-item active absolute inset-0 items-center justify-center text-center px-4 overflow-hidden">
+            <!-- Background Layer (Blurred & Covered) -->
+            <div class="absolute inset-0 bg-cover bg-center blur-sm scale-110"
+                style="background-image: url('/carrousel/img1.png');"></div>
+            <!-- Dark Overlay -->
+            <div class="absolute inset-0 bg-brand-dark/70"></div>
+            <!-- Image Layer (Contained) -->
+            <div class="absolute inset-0 bg-contain bg-center bg-no-repeat opacity-80 mix-blend-overlay"
+                style="background-image: url('/carrousel/img1.png');"></div>
+
             <div class="relative z-10 max-w-4xl mx-auto pt-20">
                 <h1 class="text-4xl md:text-7xl font-bold text-white mb-6">Engenharia de Alta Performance</h1>
                 <p class="text-lg md:text-xl text-gray-200 mb-8 max-w-2xl mx-auto">Soluções completas em obras, projetos
@@ -77,9 +84,16 @@
         </div>
 
         <!-- Slide 2 -->
-        <div class="carousel-item absolute inset-0 items-center justify-center text-center px-4 bg-cover bg-center"
-            style="background-image: url('/carrousel/img2.png');">
+        <div class="carousel-item absolute inset-0 items-center justify-center text-center px-4 overflow-hidden">
+            <!-- Background Layer -->
+            <div class="absolute inset-0 bg-cover bg-center blur-sm scale-110"
+                style="background-image: url('/carrousel/img2.png');"></div>
+            <!-- Dark Overlay -->
             <div class="absolute inset-0 bg-brand-dark/70"></div>
+            <!-- Image Layer -->
+            <div class="absolute inset-0 bg-contain bg-center bg-no-repeat opacity-80 mix-blend-overlay"
+                style="background-image: url('/carrousel/img2.png');"></div>
+
             <div class="relative z-10 max-w-4xl mx-auto pt-20">
                 <h1 class="text-4xl md:text-7xl font-bold text-white mb-6">Segurança e Diagnóstico</h1>
                 <p class="text-lg md:text-xl text-gray-200 mb-8 max-w-2xl mx-auto">Perícias, laudos e suporte técnico
@@ -90,6 +104,73 @@
                 </a>
             </div>
         </div>
+
+        <!-- Slide 3 (Novo) -->
+        <div class="carousel-item absolute inset-0 items-center justify-center text-center px-4 overflow-hidden">
+            <!-- Background Layer -->
+            <div class="absolute inset-0 bg-cover bg-center blur-sm scale-110"
+                style="background-image: url('/funcionario-epi.jpeg');"></div>
+            <!-- Dark Overlay -->
+            <div class="absolute inset-0 bg-brand-dark/70"></div>
+            <!-- Image Layer -->
+            <div class="absolute inset-0 bg-contain bg-center bg-no-repeat opacity-90"
+                style="background-image: url('/funcionario-epi.jpeg');"></div>
+
+            <div class="relative z-10 max-w-4xl mx-auto pt-20">
+                <h1 class="text-4xl md:text-7xl font-bold text-white mb-6">Equipe Qualificada</h1>
+                <p class="text-lg md:text-xl text-gray-200 mb-8 max-w-2xl mx-auto">Profissionais treinados e equipados
+                    com rigorosos padrões de segurança para sua obra.</p>
+                <a href="#sobre"
+                    class="inline-block bg-brand-primary hover:bg-blue-900 text-white font-bold py-4 px-10 rounded-full transition-all transform hover:scale-105 shadow-xl border border-white/10">
+                    Conheça a Equipe
+                </a>
+            </div>
+        </div>
+
+        <!-- Slide 4 (Novo) -->
+        <div class="carousel-item absolute inset-0 items-center justify-center text-center px-4 overflow-hidden">
+            <!-- Background Layer -->
+            <div class="absolute inset-0 bg-cover bg-center blur-sm scale-110"
+                style="background-image: url('/restauracao-01.jpeg');"></div>
+            <!-- Dark Overlay -->
+            <div class="absolute inset-0 bg-brand-dark/70"></div>
+            <!-- Image Layer -->
+            <div class="absolute inset-0 bg-contain bg-center bg-no-repeat opacity-90"
+                style="background-image: url('/restauracao-01.jpeg');"></div>
+
+            <div class="relative z-10 max-w-4xl mx-auto pt-20">
+                <h1 class="text-4xl md:text-7xl font-bold text-white mb-6">Restauração Especializada</h1>
+                <p class="text-lg md:text-xl text-gray-200 mb-8 max-w-2xl mx-auto">Técnicas avançadas de recuperação
+                    estrutural e estética para renovar seu patrimônio.</p>
+                <a href="#servicos"
+                    class="inline-block bg-brand-primary hover:bg-blue-900 text-white font-bold py-4 px-10 rounded-full transition-all transform hover:scale-105 shadow-xl border border-white/10">
+                    Ver Serviços
+                </a>
+            </div>
+        </div>
+
+        <!-- Slide 5 (Novo) -->
+        <div class="carousel-item absolute inset-0 items-center justify-center text-center px-4 overflow-hidden">
+            <!-- Background Layer -->
+            <div class="absolute inset-0 bg-cover bg-center blur-sm scale-110"
+                style="background-image: url('/pintura-01.jpeg');"></div>
+            <!-- Dark Overlay -->
+            <div class="absolute inset-0 bg-brand-dark/70"></div>
+            <!-- Image Layer -->
+            <div class="absolute inset-0 bg-contain bg-center bg-no-repeat opacity-90"
+                style="background-image: url('/pintura-01.jpeg');"></div>
+
+            <div class="relative z-10 max-w-4xl mx-auto pt-20">
+                <h1 class="text-4xl md:text-7xl font-bold text-white mb-6">Acabamento Superior</h1>
+                <p class="text-lg md:text-xl text-gray-200 mb-8 max-w-2xl mx-auto">Pintura e revitalização de fachadas
+                    com materiais de alta durabilidade e garantia.</p>
+                <a href="#contato"
+                    class="inline-block bg-brand-primary hover:bg-blue-900 text-white font-bold py-4 px-10 rounded-full transition-all transform hover:scale-105 shadow-xl border border-white/10">
+                    Fale Conosco
+                </a>
+            </div>
+        </div>
+
 
         <!-- Controlos Carrossel -->
         <button onclick="prevSlide()"
@@ -106,6 +187,12 @@
             <div class="dot active h-2 w-8 rounded-full bg-white/30 transition-all cursor-pointer"
                 onclick="goToSlide(0)"></div>
             <div class="dot h-2 w-8 rounded-full bg-white/30 transition-all cursor-pointer" onclick="goToSlide(1)">
+            </div>
+            <div class="dot h-2 w-8 rounded-full bg-white/30 transition-all cursor-pointer" onclick="goToSlide(2)">
+            </div>
+            <div class="dot h-2 w-8 rounded-full bg-white/30 transition-all cursor-pointer" onclick="goToSlide(3)">
+            </div>
+            <div class="dot h-2 w-8 rounded-full bg-white/30 transition-all cursor-pointer" onclick="goToSlide(4)">
             </div>
         </div>
 
@@ -220,8 +307,7 @@ nt-bold text-gray-900 dark:text-brand-text mb-4">Nossas Soluções</h2>
             </div>
 
             <div id="services-loader" class="hidden flex justify-center items-center py-20">
-                <div class="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-bSelecione uma categoria abaixo para
-                    filtrar os serviçosrand-primary"></div>
+                <div class="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-brand-primary"></div>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8" id="services-grid">
