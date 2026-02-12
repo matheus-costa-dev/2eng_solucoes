@@ -99,11 +99,17 @@ function getImagesForService(serviceId) {
   const basePath = '/2eng_solucoes/'; // Base URL conforme vite.config.js
 
   for (const path in allPublicImages) {
-    // path ex: "../public/obras/imagem.jpg"
-    // Verifica se a imagem está na pasta correspondente ao serviceId
-    if (path.includes(`/public/${serviceId}/`)) {
-      const fileName = path.split('/').pop();
-      images.push(`${basePath}${serviceId}/${fileName}`);
+    // path ex: "../public/engenharia/obras/imagem.jpg"
+    // Verifica se a imagem está na pasta correspondente ao serviceId (dentro de qualquer categoria)
+    // Usamos `/${serviceId}/` para garantir que estamos pegando a pasta exata do serviço
+    if (path.includes(`/${serviceId}/`)) {
+      // Precisamos reconstruir o caminho relativo correto para o navegador
+      // O path original é algo como "../public/engenharia/obras/img.jpg"
+      // Queremos algo como "/2eng_solucoes/engenharia/obras/img.jpg"
+
+      // Extrai a parte depois de "public/"
+      const relativePath = path.split('/public/')[1];
+      images.push(`${basePath}${relativePath}`);
     }
   }
   return images;

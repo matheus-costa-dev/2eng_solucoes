@@ -570,17 +570,35 @@ nt-bold text-gray-900 dark:text-brand-text mb-4">Nossas Soluções</h2>
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
                 <!-- Info de Contacto -->
                 <div class="flex flex-row gap-8">
-                    <div class="flex items-start gap-4">
+                    <a href="mailto:seuemail@dominio.com" target="_blank"
+                        class="flex items-start gap-4 group hover:bg-white/5 p-2 -m-2 rounded-xl transition-all duration-300">
+                        <!-- Ícone Dinâmico -->
                         <div
-                            class="w-12 h-12 bg-brand-primary/20 text-brand-primary rounded-lg flex items-center justify-center shrink-0">
-                            <i class="fas fa-envelope"></i>
+                            class="w-12 h-12 bg-brand-primary/20 text-brand-primary rounded-lg flex items-center justify-center shrink-0 transition-all duration-300 group-hover:bg-blue-600/20 group-hover:text-blue-500 relative overflow-hidden">
+                            <!-- Ícone email (Sobe no hover) -->
+                            <i
+                                class="fas fa-envelope transition-all duration-300 group-hover:-translate-y-8 absolute"></i>
+                            <!-- Ícone email (Sobe no hover) -->
+                            <i
+                                class="fas fa-envelope text-xl transition-all duration-300 translate-y-8 group-hover:translate-y-0 absolute"></i>
                         </div>
-                        <div>
-                            <h4 class="font-bold text-lg">Email</h4>
-                            <p class="text-gray-400">contato@empresa.com</p>
-                        </div>
-                    </div>
 
+                        <!-- Texto Dinâmico -->
+                        <div>
+                            <h4 class="font-bold text-lg transition-colors duration-300 group-hover:text-blue-500">
+                                E-mail</h4>
+                            <div class="relative h-6 overflow-hidden w-48">
+                                <!-- Texto Local (Sobe no hover) -->
+                                <p
+                                    class="text-gray-400 absolute top-0 left-0 transition-all duration-300 group-hover:-translate-y-6">
+                                    contato@email.com</p>
+                                <!-- Texto de Ação (Sobe no hover) -->
+                                <p
+                                    class="text-blue-400 font-medium absolute top-0 left-0 translate-y-6 transition-all duration-300 group-hover:translate-y-0">
+                                    Mandar email</p>
+                            </div>
+                        </div>
+                    </a>
                     <!-- BLOCO DE TELEFONE / WHATSAPP INTERATIVO -->
                     <a href="https://wa.me/5521975381368?text=Olá!%20Vim%20pelo%20site%20e%20gostaria%20de%20falar%20com%20a%202%20ENG%20Serviços%20sobre%20um%20orçamento"
                         target="_blank"
