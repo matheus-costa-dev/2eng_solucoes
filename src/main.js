@@ -91,6 +91,24 @@ function filterServices(category) {
 }
 
 // --- DADOS DOS SERVIÇOS (MOCK) ---
+// Coleta todas as imagens da pasta public para uso dinâmico nos modais
+const allPublicImages = import.meta.glob('../public/**/*.{jpg,jpeg,png,webp}', { eager: true });
+
+function getImagesForService(serviceId) {
+  const images = [];
+  const basePath = '/2eng_solucoes/'; // Base URL conforme vite.config.js
+
+  for (const path in allPublicImages) {
+    // path ex: "../public/obras/imagem.jpg"
+    // Verifica se a imagem está na pasta correspondente ao serviceId
+    if (path.includes(`/public/${serviceId}/`)) {
+      const fileName = path.split('/').pop();
+      images.push(`${basePath}${serviceId}/${fileName}`);
+    }
+  }
+  return images;
+}
+
 const servicesData = {
   "obras": {
     title: "Obras e Reformas",
@@ -101,11 +119,6 @@ const servicesData = {
       "Profissionais qualificados",
       "Minimização de desperdícios",
       "Garantia técnica de execução"
-    ],
-    images: [
-      "/2eng_solucoes/restauracao-01.jpeg",
-      "/2eng_solucoes/pintura-01.jpeg",
-      "/2eng_solucoes/funcionario-epi.jpeg"
     ]
   },
   "projetos": {
@@ -117,10 +130,6 @@ const servicesData = {
       "Regularização junto aos órgãos",
       "Otimização de custos",
       "Detalhamento executivo"
-    ],
-    images: [
-      "/2eng_solucoes/termografia-01.jpeg",
-      "/2eng_solucoes/pericia-01.jpeg"
     ]
   },
   "implantacoes": {
@@ -132,10 +141,6 @@ const servicesData = {
       "Supervisão técnica",
       "Testes e comissionamento",
       "Treinamento de equipe"
-    ],
-    images: [
-      "/2eng_solucoes/spda-06.jpeg",
-      "/2eng_solucoes/funcionario-epi.jpeg"
     ]
   },
   "dimensionamentos": {
@@ -147,10 +152,6 @@ const servicesData = {
       "Eficiência energética",
       "Conformidade com NBRs",
       "Redução de custos operacionais"
-    ],
-    images: [
-      "/2eng_solucoes/pericia-eletrica-01.jpeg",
-      "/2eng_solucoes/pericia-eletrica-02.jpeg"
     ]
   },
   "reforco_estrutural": {
@@ -162,10 +163,6 @@ const servicesData = {
       "Técnicas avançadas (Fibra de Carbono, etc.)",
       "Laudo de estabilidade",
       "Aumento da vida útil"
-    ],
-    images: [
-      "/2eng_solucoes/pericia-01.jpeg",
-      "/2eng_solucoes/pericia-02.jpeg"
     ]
   },
   "pericias": {
@@ -177,11 +174,6 @@ const servicesData = {
       "Fundamentação técnica",
       "Auxílio em disputas judiciais",
       "Recomendações de reparo"
-    ],
-    images: [
-      "/2eng_solucoes/pericia-01.jpeg",
-      "/2eng_solucoes/pericia-eletrica-01.jpeg",
-      "/2eng_solucoes/pericia-eletrica-03.jpeg"
     ]
   },
   "laudos": {
@@ -193,12 +185,6 @@ const servicesData = {
       "Segurança jurídica",
       "Priorização de manutenções",
       "Valorização do imóvel"
-    ],
-    images: [
-      "/2eng_solucoes/termografia-01.jpeg",
-      "/2eng_solucoes/termografia-02.jpeg",
-      "/2eng_solucoes/termografia-03.jpeg",
-      "/2eng_solucoes/termografia-04.jpeg"
     ]
   },
   "suporte_assembleias": {
@@ -210,10 +196,6 @@ const servicesData = {
       "Embasamento para decisões",
       "Mediação de conflitos técnicos",
       "Transparência na gestão"
-    ],
-    images: [
-      "/2eng_solucoes/funcionario-epi.jpeg",
-      "/2eng_solucoes/carrousel/img1.png"
     ]
   },
   "manutencoes": {
@@ -225,11 +207,6 @@ const servicesData = {
       "Preservação do patrimônio",
       "Segurança dos usuários",
       "Cronograma organizado"
-    ],
-    images: [
-      "/2eng_solucoes/fachada-depois-01.jpeg",
-      "/2eng_solucoes/fachada-restaurada-01.jpeg",
-      "/2eng_solucoes/pintura-01.jpeg"
     ]
   },
   "fachadas": {
@@ -241,20 +218,6 @@ const servicesData = {
       "Proteção contra intempéries",
       "Segurança (risco de desplacamento)",
       "Materiais de alta durabilidade"
-    ],
-    images: [
-      "/2eng_solucoes/fachada-restaurada-01.jpeg",
-      "/2eng_solucoes/fachada-restaurada-02.jpeg",
-      "/2eng_solucoes/fachada-restaurada-03.jpeg",
-      "/2eng_solucoes/fachada-restaurada-04.jpeg",
-      "/2eng_solucoes/fachada-restaurada-05.jpeg",
-      "/2eng_solucoes/fachada-restaurada-06.jpeg",
-      "/2eng_solucoes/fachada-depois-01.jpeg",
-      "/2eng_solucoes/fachada-depois-02.jpeg",
-      "/2eng_solucoes/fachada-depois-03.jpeg",
-      "/2eng_solucoes/fachada-antes-01.jpeg",
-      "/2eng_solucoes/fachada-antes-02.jpeg",
-      "/2eng_solucoes/fachada-antes-03.jpeg"
     ]
   },
   "impermeabilizacoes": {
@@ -266,10 +229,6 @@ const servicesData = {
       "Proteção da estrutura",
       "Garantia estendida",
       "Diversas tecnologias (Manta, PU, etc.)"
-    ],
-    images: [
-      "/2eng_solucoes/pintura-02.jpeg",
-      "/2eng_solucoes/fachada-depois-01.jpeg"
     ]
   },
   "spda": {
@@ -281,28 +240,6 @@ const servicesData = {
       "Segurança contra raios",
       "Proteção de equipamentos",
       "Emissão de laudo técnico"
-    ],
-    images: [
-      "/2eng_solucoes/spda-17.jpeg",
-      "/2eng_solucoes/spda-18.jpeg",
-      "/2eng_solucoes/spda-19.jpeg",
-      "/2eng_solucoes/spda-20.jpeg",
-      "/2eng_solucoes/spda-01.jpeg",
-      "/2eng_solucoes/spda-02.jpeg",
-      "/2eng_solucoes/spda-03.jpeg",
-      "/2eng_solucoes/spda-04.jpeg",
-      "/2eng_solucoes/spda-05.jpeg",
-      "/2eng_solucoes/spda-06.jpeg",
-      "/2eng_solucoes/spda-07.jpeg",
-      "/2eng_solucoes/spda-08.jpeg",
-      "/2eng_solucoes/spda-09.jpeg",
-      "/2eng_solucoes/spda-10.jpeg",
-      "/2eng_solucoes/spda-11.jpeg",
-      "/2eng_solucoes/spda-12.jpeg",
-      "/2eng_solucoes/spda-13.jpeg",
-      "/2eng_solucoes/spda-14.jpeg",
-      "/2eng_solucoes/spda-15.jpeg",
-      "/2eng_solucoes/spda-16.jpeg"
     ]
   },
   "espacos_confinados": {
@@ -314,12 +251,6 @@ const servicesData = {
       "Equipamentos de resgate",
       "Monitoramento de gases",
       "Profissionais habilitados"
-    ],
-    images: [
-      "/2eng_solucoes/confinado-01.jpeg",
-      "/2eng_solucoes/confinado-02.jpeg",
-      "/2eng_solucoes/confinado-03.jpeg",
-      "/2eng_solucoes/confinado-04.jpeg"
     ]
   },
   "terceirizacoes": {
@@ -331,10 +262,6 @@ const servicesData = {
       "Gestão simplificada",
       "Substituição imediata",
       "Equipe uniformizada e treinada"
-    ],
-    images: [
-      "/2eng_solucoes/funcionario-epi.jpeg",
-      "/2eng_solucoes/carrousel/img1.png"
     ]
   }
 };
@@ -359,7 +286,14 @@ function openServiceModal(serviceId) {
   ).join('');
 
   // Configurar Carrossel
-  currentModalImages = service.images;
+  // Busca imagens dinamicamente da pasta correspondente
+  currentModalImages = getImagesForService(serviceId);
+
+  // Fallback caso não encontre imagens (opcional)
+  if (currentModalImages.length === 0) {
+    console.warn(`Nenhuma imagem encontrada para o serviço: ${serviceId}. Verifique se a pasta public/${serviceId} existe e contém imagens.`);
+  }
+
   currentModalSlideIndex = 0;
   renderModalCarousel();
 
@@ -404,6 +338,8 @@ function renderModalCarousel() {
   // Limpar
   track.innerHTML = '';
   dotsContainer.innerHTML = '';
+
+  if (currentModalImages.length === 0) return;
 
   // Clonar último e primeiro slide para efeito de loop infinito
   const slidesWithClones = [
@@ -453,6 +389,8 @@ function updateModalCarouselPosition() {
 
 function updateModalDots() {
   const dots = document.getElementById('modal-carousel-dots').children;
+  if (!dots.length) return;
+
   // O índice visual real é currentModalSlideIndex - 1
   // Se estiver no clone final (índice N+1), visualmente é o slide 0
   // Se estiver no clone inicial (índice 0), visualmente é o slide N-1
@@ -471,7 +409,7 @@ function updateModalDots() {
 }
 
 function nextModalSlide() {
-  if (isModalTransitioning) return;
+  if (isModalTransitioning || currentModalImages.length <= 1) return;
 
   const track = document.getElementById('modal-carousel-track');
   isModalTransitioning = true;
@@ -495,7 +433,7 @@ function nextModalSlide() {
 }
 
 function prevModalSlide() {
-  if (isModalTransitioning) return;
+  if (isModalTransitioning || currentModalImages.length <= 1) return;
 
   const track = document.getElementById('modal-carousel-track');
   isModalTransitioning = true;
@@ -526,6 +464,22 @@ function goToModalSlide(index) {
   updateModalCarouselPosition();
   updateModalDots();
 }
+
+// Inicializar Event Listeners dos Cards
+document.addEventListener('DOMContentLoaded', () => {
+  filterServices('engenharia');
+
+  // Adicionar click nos cards
+  const cards = document.querySelectorAll('.service-card');
+  cards.forEach(card => {
+    card.addEventListener('click', () => {
+      const serviceId = card.getAttribute('data-service-id');
+      if (serviceId) {
+        openServiceModal(serviceId);
+      }
+    });
+  });
+});
 
 // Inicializar Event Listeners dos Cards
 document.addEventListener('DOMContentLoaded', () => {
