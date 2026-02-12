@@ -26,24 +26,149 @@ if (localStorage.getItem('theme') === 'dark') {
   document.getElementById('theme-icon').classList.add('fa-sun');
 }
 
-// --- CARROSSEL ---
+// --- CARROSSEL PRINCIPAL DINAMICO ---
+// Importante: Usamos as: 'url' (ou query: '?url') para que o Vite retorne apenas o caminho do arquivo
+// e não tente processá-lo como módulo JS, evitando o erro "Assets in public directory cannot be imported".
+const mainCarouselImages = import.meta.glob(['../public/assets/carrousel/*.{jpg,jpeg,png,webp}'], { eager: true, query: '?url', import: 'default' });
+const mainCarouselTrack = document.getElementById('main-carousel-track');
+const dotsContainer = document.querySelector('.absolute.bottom-12.left-1\\/2');
+
+// Configuração de Textos para o Carrossel
+const carouselData = {
+  'img1.png': {
+    title: 'Engenharia de Alta Performance',
+    text: 'Soluções completas em obras, projetos e manutenções prediais com rigor técnico e segurança.',
+    link: '#servicos',
+    btnText: 'Conheça nossos serviços'
+  },
+  'img2.png': {
+    title: 'Segurança e Diagnóstico',
+    text: 'Perícias, laudos e suporte técnico especializado para garantir a valorização do seu patrimônio.',
+    link: '#contato',
+    btnText: 'Solicitar Orçamento'
+  },
+  'funcionario-epi.jpeg': {
+    title: 'Equipe Qualificada',
+    text: 'Profissionais treinados e equipados com rigorosos padrões de segurança para sua obra.',
+    link: '#sobre',
+    btnText: 'Conheça a Equipe'
+  },
+  'restauracao-01.jpeg': {
+    title: 'Restauração Especializada',
+    text: 'Técnicas avançadas de recuperação estrutural e estética para renovar seu patrimônio.',
+    link: '#servicos',
+    btnText: 'Ver Serviços'
+  },
+  'pintura-01.jpeg': {
+    title: 'Acabamento Superior',
+    text: 'Pintura e revitalização de fachadas com materiais de alta durabilidade e garantia.',
+    link: '#contato',
+    btnText: 'Fale Conosco'
+  },
+  'pericia-eletrica-01.jpeg': {
+    title: 'Perícia e Diagnóstico Elétrico',
+    text: 'Análise detalhada de instalações elétricas para garantir segurança e conformidade.',
+    link: '#servicos',
+    btnText: 'Saiba Mais'
+  }
+};
+
 let slideIndex = 0;
-const slides = document.querySelectorAll('.carousel-item');
-const dots = document.querySelectorAll('.dot');
+let slides = [];
+let dots = [];
+let slideInterval;
+
+function initMainCarousel() {
+  if (!mainCarouselTrack) return;
+
+  mainCarouselTrack.innerHTML = ''; // Limpar container
+
+  // Pegar container de dots existente e limpar (mantendo a div container)
+  const dotsWrapper = document.querySelector('.absolute.bottom-12.left-1\\/2.z-30.flex.gap-3');
+  if (dotsWrapper) dotsWrapper.innerHTML = '';
+
+  const images = [];
+  // Processar caminhos das imagens
+  for (const path in mainCarouselImages) {
+    const filename = path.split('/').pop();
+    // mainCarouselImages[path] retorna a URL (ex: /assets/carrousel/img1.png ou a string data: se fosse pequeno e inlined)
+    // O Vite resolve isso corretamente tanto em dev quanto em build
+    const imgSrc = mainCarouselImages[path];
+    images.push({ filename, imgSrc });
+  }
+
+  // Ordenar imagens (opcional, por enquanto ordem de leitura)
+  // images.sort((a, b) => a.filename.localeCompare(b.filename));
+
+  images.forEach((img, index) => {
+    const config = carouselData[img.filename] || {
+      title: 'Soluções em Engenharia',
+      text: 'Qualidade e compromisso com o resultado.',
+      link: '#contato',
+      btnText: 'Fale Conosco'
+    };
+
+    // Criar Slide
+    const slide = document.createElement('div');
+    slide.className = `carousel-item absolute inset-0 items-center justify-center text-center px-4 overflow-hidden ${index === 0 ? 'active' : ''}`;
+    slide.innerHTML = `
+      <div class="absolute inset-0 bg-cover bg-center blur-sm scale-110" style="background-image: url('${img.imgSrc}');"></div>
+      <div class="absolute inset-0 bg-brand-dark/70"></div>
+      <div class="absolute inset-0 bg-contain bg-center bg-no-repeat opacity-80 mix-blend-overlay" style="background-image: url('${img.imgSrc}');"></div>
+      <div class="relative z-10 max-w-4xl mx-auto pt-20">
+        <h1 class="text-4xl md:text-7xl font-bold text-white mb-6">${config.title}</h1>
+        <p class="text-lg md:text-xl text-gray-200 mb-8 max-w-2xl mx-auto">${config.text}</p>
+        <a href="${config.link}" class="inline-block bg-brand-primary hover:bg-blue-900 text-white font-bold py-4 px-10 rounded-full transition-all transform hover:scale-105 shadow-xl border border-white/10">
+          ${config.btnText}
+        </a>
+      </div>
+    `;
+    mainCarouselTrack.appendChild(slide);
+
+    // Criar Dot
+    if (dotsWrapper) {
+      const dot = document.createElement('div');
+      dot.className = `dot h-2 w-8 rounded-full bg-white/30 transition-all cursor-pointer ${index === 0 ? 'active' : ''}`;
+      dot.onclick = () => goToSlide(index);
+      dotsWrapper.appendChild(dot);
+    }
+  });
+
+  // Atualizar referências
+  slides = document.querySelectorAll('.carousel-item');
+  dots = document.querySelectorAll('.dot');
+
+  // Iniciar timer
+  startCarouselTimer();
+}
 
 function showSlide(n) {
+  if (!slides.length) return;
+
   slides.forEach(s => s.classList.remove('active'));
   dots.forEach(d => d.classList.remove('active'));
 
   slideIndex = (n + slides.length) % slides.length;
-  slides[slideIndex].classList.add('active');
-  dots[slideIndex].classList.add('active');
+
+  if (slides[slideIndex]) slides[slideIndex].classList.add('active');
+  if (dots[slideIndex]) dots[slideIndex].classList.add('active');
 }
 
 function nextSlide() { showSlide(slideIndex + 1); }
 function prevSlide() { showSlide(slideIndex - 1); }
-function goToSlide(n) { showSlide(n); }
-setInterval(nextSlide, 6000);
+function goToSlide(n) { showSlide(n); restartTimer(); }
+
+function startCarouselTimer() {
+  if (slideInterval) clearInterval(slideInterval);
+  slideInterval = setInterval(nextSlide, 6000);
+}
+
+function restartTimer() {
+  startCarouselTimer();
+}
+
+// Inicializar assim que o DOM estiver pronto
+document.addEventListener('DOMContentLoaded', initMainCarousel);
 
 // --- FILTRO DE SERVIÇOS ---
 // --- FILTRO DE SERVIÇOS COM LOADER ---
