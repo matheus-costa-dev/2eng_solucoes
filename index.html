@@ -62,9 +62,16 @@
     <section id="inicio" class="relative h-screen w-full overflow-hidden bg-brand-dark">
 
         <!-- Slide 1 -->
-        <div class="carousel-item active absolute inset-0 items-center justify-center text-center px-4 bg-cover bg-center"
-            style="background-image: url('/carrousel/img1.png');">
-            <div class="absolute inset-0 bg-brand-dark/70"></div> <!-- Escurecido com a base dark -->
+        <div class="carousel-item active absolute inset-0 items-center justify-center text-center px-4 overflow-hidden">
+            <!-- Background Layer (Blurred & Covered) -->
+            <div class="absolute inset-0 bg-cover bg-center blur-sm scale-110"
+                style="background-image: url('/carrousel/img1.png');"></div>
+            <!-- Dark Overlay -->
+            <div class="absolute inset-0 bg-brand-dark/70"></div>
+            <!-- Image Layer (Contained) -->
+            <div class="absolute inset-0 bg-contain bg-center bg-no-repeat opacity-80 mix-blend-overlay"
+                style="background-image: url('/carrousel/img1.png');"></div>
+
             <div class="relative z-10 max-w-4xl mx-auto pt-20">
                 <h1 class="text-4xl md:text-7xl font-bold text-white mb-6">Engenharia de Alta Performance</h1>
                 <p class="text-lg md:text-xl text-gray-200 mb-8 max-w-2xl mx-auto">Soluções completas em obras, projetos
@@ -77,9 +84,16 @@
         </div>
 
         <!-- Slide 2 -->
-        <div class="carousel-item absolute inset-0 items-center justify-center text-center px-4 bg-cover bg-center"
-            style="background-image: url('/carrousel/img2.png');">
+        <div class="carousel-item absolute inset-0 items-center justify-center text-center px-4 overflow-hidden">
+            <!-- Background Layer -->
+            <div class="absolute inset-0 bg-cover bg-center blur-sm scale-110"
+                style="background-image: url('/carrousel/img2.png');"></div>
+            <!-- Dark Overlay -->
             <div class="absolute inset-0 bg-brand-dark/70"></div>
+            <!-- Image Layer -->
+            <div class="absolute inset-0 bg-contain bg-center bg-no-repeat opacity-80 mix-blend-overlay"
+                style="background-image: url('/carrousel/img2.png');"></div>
+
             <div class="relative z-10 max-w-4xl mx-auto pt-20">
                 <h1 class="text-4xl md:text-7xl font-bold text-white mb-6">Segurança e Diagnóstico</h1>
                 <p class="text-lg md:text-xl text-gray-200 mb-8 max-w-2xl mx-auto">Perícias, laudos e suporte técnico
@@ -90,6 +104,73 @@
                 </a>
             </div>
         </div>
+
+        <!-- Slide 3 (Novo) -->
+        <div class="carousel-item absolute inset-0 items-center justify-center text-center px-4 overflow-hidden">
+            <!-- Background Layer -->
+            <div class="absolute inset-0 bg-cover bg-center blur-sm scale-110"
+                style="background-image: url('/funcionario-epi.jpeg');"></div>
+            <!-- Dark Overlay -->
+            <div class="absolute inset-0 bg-brand-dark/70"></div>
+            <!-- Image Layer -->
+            <div class="absolute inset-0 bg-contain bg-center bg-no-repeat opacity-90"
+                style="background-image: url('/funcionario-epi.jpeg');"></div>
+
+            <div class="relative z-10 max-w-4xl mx-auto pt-20">
+                <h1 class="text-4xl md:text-7xl font-bold text-white mb-6">Equipe Qualificada</h1>
+                <p class="text-lg md:text-xl text-gray-200 mb-8 max-w-2xl mx-auto">Profissionais treinados e equipados
+                    com rigorosos padrões de segurança para sua obra.</p>
+                <a href="#sobre"
+                    class="inline-block bg-brand-primary hover:bg-blue-900 text-white font-bold py-4 px-10 rounded-full transition-all transform hover:scale-105 shadow-xl border border-white/10">
+                    Conheça a Equipe
+                </a>
+            </div>
+        </div>
+
+        <!-- Slide 4 (Novo) -->
+        <div class="carousel-item absolute inset-0 items-center justify-center text-center px-4 overflow-hidden">
+            <!-- Background Layer -->
+            <div class="absolute inset-0 bg-cover bg-center blur-sm scale-110"
+                style="background-image: url('/restauracao-01.jpeg');"></div>
+            <!-- Dark Overlay -->
+            <div class="absolute inset-0 bg-brand-dark/70"></div>
+            <!-- Image Layer -->
+            <div class="absolute inset-0 bg-contain bg-center bg-no-repeat opacity-90"
+                style="background-image: url('/restauracao-01.jpeg');"></div>
+
+            <div class="relative z-10 max-w-4xl mx-auto pt-20">
+                <h1 class="text-4xl md:text-7xl font-bold text-white mb-6">Restauração Especializada</h1>
+                <p class="text-lg md:text-xl text-gray-200 mb-8 max-w-2xl mx-auto">Técnicas avançadas de recuperação
+                    estrutural e estética para renovar seu patrimônio.</p>
+                <a href="#servicos"
+                    class="inline-block bg-brand-primary hover:bg-blue-900 text-white font-bold py-4 px-10 rounded-full transition-all transform hover:scale-105 shadow-xl border border-white/10">
+                    Ver Serviços
+                </a>
+            </div>
+        </div>
+
+        <!-- Slide 5 (Novo) -->
+        <div class="carousel-item absolute inset-0 items-center justify-center text-center px-4 overflow-hidden">
+            <!-- Background Layer -->
+            <div class="absolute inset-0 bg-cover bg-center blur-sm scale-110"
+                style="background-image: url('/pintura-01.jpeg');"></div>
+            <!-- Dark Overlay -->
+            <div class="absolute inset-0 bg-brand-dark/70"></div>
+            <!-- Image Layer -->
+            <div class="absolute inset-0 bg-contain bg-center bg-no-repeat opacity-90"
+                style="background-image: url('/pintura-01.jpeg');"></div>
+
+            <div class="relative z-10 max-w-4xl mx-auto pt-20">
+                <h1 class="text-4xl md:text-7xl font-bold text-white mb-6">Acabamento Superior</h1>
+                <p class="text-lg md:text-xl text-gray-200 mb-8 max-w-2xl mx-auto">Pintura e revitalização de fachadas
+                    com materiais de alta durabilidade e garantia.</p>
+                <a href="#contato"
+                    class="inline-block bg-brand-primary hover:bg-blue-900 text-white font-bold py-4 px-10 rounded-full transition-all transform hover:scale-105 shadow-xl border border-white/10">
+                    Fale Conosco
+                </a>
+            </div>
+        </div>
+
 
         <!-- Controlos Carrossel -->
         <button onclick="prevSlide()"
@@ -106,6 +187,12 @@
             <div class="dot active h-2 w-8 rounded-full bg-white/30 transition-all cursor-pointer"
                 onclick="goToSlide(0)"></div>
             <div class="dot h-2 w-8 rounded-full bg-white/30 transition-all cursor-pointer" onclick="goToSlide(1)">
+            </div>
+            <div class="dot h-2 w-8 rounded-full bg-white/30 transition-all cursor-pointer" onclick="goToSlide(2)">
+            </div>
+            <div class="dot h-2 w-8 rounded-full bg-white/30 transition-all cursor-pointer" onclick="goToSlide(3)">
+            </div>
+            <div class="dot h-2 w-8 rounded-full bg-white/30 transition-all cursor-pointer" onclick="goToSlide(4)">
             </div>
         </div>
 
@@ -220,8 +307,7 @@ nt-bold text-gray-900 dark:text-brand-text mb-4">Nossas Soluções</h2>
             </div>
 
             <div id="services-loader" class="hidden flex justify-center items-center py-20">
-                <div class="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-bSelecione uma categoria abaixo para
-                    filtrar os serviçosrand-primary"></div>
+                <div class="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-brand-primary"></div>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8" id="services-grid">
@@ -483,18 +569,36 @@ nt-bold text-gray-900 dark:text-brand-text mb-4">Nossas Soluções</h2>
 
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
                 <!-- Info de Contacto -->
-                <div class="flex flex-col gap-8">
-                    <div class="flex items-start gap-4">
+                <div class="flex flex-row gap-8">
+                    <a href="mailto:seuemail@dominio.com" target="_blank"
+                        class="flex items-start gap-4 group hover:bg-white/5 p-2 -m-2 rounded-xl transition-all duration-300">
+                        <!-- Ícone Dinâmico -->
                         <div
-                            class="w-12 h-12 bg-brand-primary/20 text-brand-primary rounded-lg flex items-center justify-center shrink-0">
-                            <i class="fas fa-envelope"></i>
+                            class="w-12 h-12 bg-brand-primary/20 text-brand-primary rounded-lg flex items-center justify-center shrink-0 transition-all duration-300 group-hover:bg-blue-600/20 group-hover:text-blue-500 relative overflow-hidden">
+                            <!-- Ícone email (Sobe no hover) -->
+                            <i
+                                class="fas fa-envelope transition-all duration-300 group-hover:-translate-y-8 absolute"></i>
+                            <!-- Ícone email (Sobe no hover) -->
+                            <i
+                                class="fas fa-envelope text-xl transition-all duration-300 translate-y-8 group-hover:translate-y-0 absolute"></i>
                         </div>
-                        <div>
-                            <h4 class="font-bold text-lg">Email</h4>
-                            <p class="text-gray-400">contato@empresa.com</p>
-                        </div>
-                    </div>
 
+                        <!-- Texto Dinâmico -->
+                        <div>
+                            <h4 class="font-bold text-lg transition-colors duration-300 group-hover:text-blue-500">
+                                E-mail</h4>
+                            <div class="relative h-6 overflow-hidden w-48">
+                                <!-- Texto Local (Sobe no hover) -->
+                                <p
+                                    class="text-gray-400 absolute top-0 left-0 transition-all duration-300 group-hover:-translate-y-6">
+                                    contato@email.com</p>
+                                <!-- Texto de Ação (Sobe no hover) -->
+                                <p
+                                    class="text-blue-400 font-medium absolute top-0 left-0 translate-y-6 transition-all duration-300 group-hover:translate-y-0">
+                                    Mandar email</p>
+                            </div>
+                        </div>
+                    </a>
                     <!-- BLOCO DE TELEFONE / WHATSAPP INTERATIVO -->
                     <a href="https://wa.me/5521975381368?text=Olá!%20Vim%20pelo%20site%20e%20gostaria%20de%20falar%20com%20a%202%20ENG%20Serviços%20sobre%20um%20orçamento"
                         target="_blank"
@@ -586,35 +690,6 @@ nt-bold text-gray-900 dark:text-brand-text mb-4">Nossas Soluções</h2>
                             </div>
                         </div>
                     </a>
-                </div>
-
-                <!-- Formulário -->
-                <div class="lg:col-span-2">
-                    <form action="https://formspree.io/f/mkovwvdp" method="POST"
-                        class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <input type="text" name="nome" placeholder="Seu nome" required
-                            class="w-full bg-slate-800 dark:bg-brand-card border border-slate-700 dark:border-slate-700 p-4 rounded-xl focus:outline-none focus:border-brand-primary transition-all text-white outline-none">
-
-                        <input type="email" name="email" placeholder="Seu email" required
-                            class="w-full bg-slate-800 dark:bg-brand-card border border-slate-700 dark:border-slate-700 p-4 rounded-xl focus:outline-none focus:border-brand-primary transition-all text-white outline-none">
-
-                        <select name="servico" required
-                            class="w-full bg-slate-800 dark:bg-brand-card border border-slate-700 dark:border-slate-700 p-4 rounded-xl focus:outline-none focus:border-brand-primary transition-all text-white outline-none md:col-span-2 text-gray-400">
-                            <option value="">Selecione o serviço de interesse...</option>
-                            <option value="obras">Obras e Reformas</option>
-                            <option value="laudos">Laudos e Perícias</option>
-                            <option value="manutencao">Manutenção Predial</option>
-                            <option value="outros">Outros</option>
-                        </select>
-
-                        <textarea name="mensagem" rows="4" placeholder="Detalhes do projeto..." required
-                            class="w-full bg-slate-800 dark:bg-brand-card border border-slate-700 dark:border-slate-700 p-4 rounded-xl focus:outline-none focus:border-brand-primary transition-all text-white outline-none md:col-span-2"></textarea>
-
-                        <button type="submit"
-                            class="md:col-span-2 bg-brand-primary hover:bg-blue-900 py-4 rounded-xl font-bold text-lg transition-all shadow-lg hover:shadow-blue-500/20 text-white">
-                            Enviar Mensagem
-                        </button>
-                    </form>
                 </div>
             </div>
         </div>
