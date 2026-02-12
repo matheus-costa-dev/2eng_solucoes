@@ -1,7 +1,6 @@
 import './style.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
-// --- LÓGICA DE TEMA (DARK MODE) ---
 function toggleTheme() {
   const html = document.documentElement;
   const icon = document.getElementById('theme-icon');
@@ -19,7 +18,6 @@ function toggleTheme() {
   }
 }
 
-// Verificar preferência salva
 if (localStorage.getItem('theme') === 'dark') {
   document.documentElement.classList.add('dark');
   document.getElementById('theme-icon').classList.remove('fa-moon');
@@ -81,24 +79,17 @@ let slideInterval;
 function initMainCarousel() {
   if (!mainCarouselTrack) return;
 
-  mainCarouselTrack.innerHTML = ''; // Limpar container
+  mainCarouselTrack.innerHTML = '';
 
-  // Pegar container de dots existente e limpar (mantendo a div container)
   const dotsWrapper = document.querySelector('.absolute.bottom-12.left-1\\/2.z-30.flex.gap-3');
   if (dotsWrapper) dotsWrapper.innerHTML = '';
 
   const images = [];
-  // Processar caminhos das imagens
   for (const path in mainCarouselImages) {
     const filename = path.split('/').pop();
-    // mainCarouselImages[path] retorna a URL (ex: /assets/carrousel/img1.png ou a string data: se fosse pequeno e inlined)
-    // O Vite resolve isso corretamente tanto em dev quanto em build
     const imgSrc = mainCarouselImages[path];
     images.push({ filename, imgSrc });
   }
-
-  // Ordenar imagens (opcional, por enquanto ordem de leitura)
-  // images.sort((a, b) => a.filename.localeCompare(b.filename));
 
   images.forEach((img, index) => {
     const config = carouselData[img.filename] || {
@@ -134,11 +125,9 @@ function initMainCarousel() {
     }
   });
 
-  // Atualizar referências
   slides = document.querySelectorAll('.carousel-item');
   dots = document.querySelectorAll('.dot');
 
-  // Iniciar timer
   startCarouselTimer();
 }
 
@@ -167,30 +156,23 @@ function restartTimer() {
   startCarouselTimer();
 }
 
-// Inicializar assim que o DOM estiver pronto
 document.addEventListener('DOMContentLoaded', initMainCarousel);
 
-// --- FILTRO DE SERVIÇOS ---
-// --- FILTRO DE SERVIÇOS COM LOADER ---
 function filterServices(category) {
   const grid = document.getElementById('services-grid');
   const loader = document.getElementById('services-loader');
   const cards = document.querySelectorAll('.service-card');
   const buttons = document.querySelectorAll('.filter-btn');
 
-  // 1. Atualiza o estado visual dos botões imediatamente
   buttons.forEach((btn) => {
     btn.classList.toggle('active', btn.dataset.filter === category);
   });
 
-  // 2. Esconde o grid e mostra o loader
   grid.style.opacity = '0';
   grid.classList.add('hidden');
   loader.classList.remove('hidden');
 
-  // 3. Simula um tempo de carregamento (ex: 800ms) para garantir o "feel" de 100% carregado
   setTimeout(() => {
-    // Filtra os cards enquanto eles estão escondidos
     cards.forEach((card) => {
       if (card.dataset.category === category) {
         card.classList.remove('hidden');
@@ -203,11 +185,9 @@ function filterServices(category) {
       }
     });
 
-    // 4. Esconde o loader e mostra o grid filtrado
     loader.classList.add('hidden');
     grid.classList.remove('hidden');
 
-    // Pequeno delay para o efeito de fade-in suave do grid
     setTimeout(() => {
       grid.style.transition = 'opacity 0.4s ease';
       grid.style.opacity = '1';
@@ -216,12 +196,11 @@ function filterServices(category) {
 }
 
 // --- DADOS DOS SERVIÇOS (MOCK) ---
-// Coleta todas as imagens da pasta public para uso dinâmico nos modais
 const allPublicImages = import.meta.glob('../public/**/*.{jpg,jpeg,png,webp}', { eager: true });
 
 function getImagesForService(serviceId) {
   const images = [];
-  const basePath = '/2eng_solucoes/'; // Base URL conforme vite.config.js
+  const basePath = '/2eng_solucoes/';
 
   for (const path in allPublicImages) {
     // path ex: "../public/engenharia/obras/imagem.jpg"
@@ -230,9 +209,6 @@ function getImagesForService(serviceId) {
     if (path.includes(`/${serviceId}/`)) {
       // Precisamos reconstruir o caminho relativo correto para o navegador
       // O path original é algo como "../public/engenharia/obras/img.jpg"
-      // Queremos algo como "/2eng_solucoes/engenharia/obras/img.jpg"
-
-      // Extrai a parte depois de "public/"
       const relativePath = path.split('/public/')[1];
       images.push(`${basePath}${relativePath}`);
     }
@@ -397,7 +373,6 @@ const servicesData = {
   }
 };
 
-// --- MODAL & MODAL CAROUSEL LOGIC ---
 let currentModalImages = [];
 let currentModalSlideIndex = 0;
 
@@ -405,22 +380,16 @@ function openServiceModal(serviceId) {
   const service = servicesData[serviceId];
   if (!service) return;
 
-  // Popular conteúdo
   document.getElementById('modal-category').textContent = service.category;
   document.getElementById('modal-title').textContent = service.title;
   document.getElementById('modal-description').textContent = service.description;
-
-  // Popular benefícios
   const benefitsList = document.getElementById('modal-benefits');
   benefitsList.innerHTML = service.benefits.map(benefit =>
     `<li class="flex items-start gap-2"><i class="fas fa-check text-green-500 mt-1 text-xs"></i><span>${benefit}</span></li>`
   ).join('');
 
-  // Configurar Carrossel
-  // Busca imagens dinamicamente da pasta correspondente
   currentModalImages = getImagesForService(serviceId);
 
-  // Fallback caso não encontre imagens (opcional)
   if (currentModalImages.length === 0) {
     console.warn(`Nenhuma imagem encontrada para o serviço: ${serviceId}. Verifique se a pasta public/${serviceId} existe e contém imagens.`);
   }
@@ -428,13 +397,11 @@ function openServiceModal(serviceId) {
   currentModalSlideIndex = 0;
   renderModalCarousel();
 
-  // Mostrar Modal
   const modal = document.getElementById('service-modal');
   const backdrop = document.getElementById('modal-backdrop');
   const panel = document.getElementById('modal-panel');
 
   modal.classList.remove('hidden');
-  // Pequeno delay para permitir a transição CSS
   setTimeout(() => {
     backdrop.classList.remove('opacity-0');
     panel.classList.remove('opacity-0', 'scale-95');
@@ -459,35 +426,30 @@ function closeServiceModal() {
   }, 300); // Tempo da transição
 }
 
-// --- LOGICA DO CARROSSEL MODAL COM LOOP INFINITO ---
 let isModalTransitioning = false;
 
 function renderModalCarousel() {
   const track = document.getElementById('modal-carousel-track');
   const dotsContainer = document.getElementById('modal-carousel-dots');
 
-  // Limpar
   track.innerHTML = '';
   dotsContainer.innerHTML = '';
 
   if (currentModalImages.length === 0) return;
 
-  // Clonar último e primeiro slide para efeito de loop infinito
   const slidesWithClones = [
-    currentModalImages[currentModalImages.length - 1], // Clone do último
+    currentModalImages[currentModalImages.length - 1],
     ...currentModalImages,
-    currentModalImages[0] // Clone do primeiro
+    currentModalImages[0]
   ];
 
-  // Criar Slides (incluindo clones)
   slidesWithClones.forEach((imgSrc) => {
     const slide = document.createElement('div');
-    slide.className = 'min-w-full h-full bg-cover bg-center shrink-0'; // Adicionado shrink-0
+    slide.className = 'min-w-full h-full bg-cover bg-center shrink-0';
     slide.style.backgroundImage = `url('${imgSrc}')`;
     track.appendChild(slide);
   });
 
-  // Criar Dots (apenas para imagens reais)
   currentModalImages.forEach((_, index) => {
     const dot = document.createElement('button');
     dot.className = `w-2 h-2 rounded-full transition-all ${index === 0 ? 'bg-white w-6' : 'bg-white/50 hover:bg-white/80'}`;
@@ -495,19 +457,13 @@ function renderModalCarousel() {
     dotsContainer.appendChild(dot);
   });
 
-  // Resetar estado
   isModalTransitioning = false;
-  // Começar no índice 1 (primeiro slide real) pois o índice 0 é o clone do último
   currentModalSlideIndex = 1;
-
-  // Posicionar sem animação inicial
   track.style.transition = 'none';
   track.style.transform = `translateX(-${currentModalSlideIndex * 100}%)`;
 
-  // Forçar reflow
   track.offsetHeight;
 
-  // Reabilitar transição
   track.style.transition = 'transform 0.5s ease-out';
 
   updateModalDots();
@@ -522,13 +478,11 @@ function updateModalDots() {
   const dots = document.getElementById('modal-carousel-dots').children;
   if (!dots.length) return;
 
-  // O índice visual real é currentModalSlideIndex - 1
-  // Se estiver no clone final (índice N+1), visualmente é o slide 0
-  // Se estiver no clone inicial (índice 0), visualmente é o slide N-1
   let visualIndex = currentModalSlideIndex - 1;
 
   if (visualIndex < 0) visualIndex = currentModalImages.length - 1;
   if (visualIndex >= currentModalImages.length) visualIndex = 0;
+  grid.style.opacity = '0';
 
   Array.from(dots).forEach((dot, index) => {
     if (index === visualIndex) {
@@ -550,14 +504,13 @@ function nextModalSlide() {
   updateModalCarouselPosition();
   updateModalDots();
 
-  // Se chegou no clone do primeiro (último item do array de slides)
   if (currentModalSlideIndex === currentModalImages.length + 1) {
     setTimeout(() => {
       track.style.transition = 'none';
-      currentModalSlideIndex = 1; // Pular para o primeiro slide real
+      currentModalSlideIndex = 1;
       updateModalCarouselPosition();
       isModalTransitioning = false;
-    }, 500); // Esperar o tempo da transição
+    }, 500);
   } else {
     setTimeout(() => isModalTransitioning = false, 500);
   }
@@ -574,11 +527,10 @@ function prevModalSlide() {
   updateModalCarouselPosition();
   updateModalDots();
 
-  // Se chegou no clone do último (primeiro item do array de slides)
   if (currentModalSlideIndex === 0) {
     setTimeout(() => {
       track.style.transition = 'none';
-      currentModalSlideIndex = currentModalImages.length; // Pular para o último slide real
+      currentModalSlideIndex = currentModalImages.length;
       updateModalCarouselPosition();
       isModalTransitioning = false;
     }, 500);
@@ -589,18 +541,16 @@ function prevModalSlide() {
 
 function goToModalSlide(index) {
   if (isModalTransitioning) return;
-  currentModalSlideIndex = index + 1; // +1 por causa do clone inicial
+  currentModalSlideIndex = index + 1;
   const track = document.getElementById('modal-carousel-track');
   track.style.transition = 'transform 0.5s ease-out';
   updateModalCarouselPosition();
   updateModalDots();
 }
 
-// Inicializar Event Listeners dos Cards
 document.addEventListener('DOMContentLoaded', () => {
   filterServices('engenharia');
 
-  // Adicionar click nos cards
   const cards = document.querySelectorAll('.service-card');
   cards.forEach(card => {
     card.addEventListener('click', () => {
@@ -612,11 +562,9 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
-// Inicializar Event Listeners dos Cards
 document.addEventListener('DOMContentLoaded', () => {
   filterServices('engenharia');
 
-  // Adicionar click nos cards
   const cards = document.querySelectorAll('.service-card');
   cards.forEach(card => {
     card.addEventListener('click', () => {
@@ -634,7 +582,6 @@ window.nextSlide = nextSlide;
 window.prevSlide = prevSlide;
 window.goToSlide = goToSlide;
 window.filterServices = filterServices;
-// Exportar funções do modal para o window (caso precise usar no onclick do HTML, embora tenhamos adicionado listeners)
 window.closeServiceModal = closeServiceModal;
 window.nextModalSlide = nextModalSlide;
 window.prevModalSlide = prevModalSlide;
