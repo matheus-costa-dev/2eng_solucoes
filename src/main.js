@@ -29,7 +29,7 @@ if (localStorage.getItem('theme') === 'dark') {
 // --- CARROSSEL PRINCIPAL DINAMICO ---
 // Importante: Usamos as: 'url' (ou query: '?url') para que o Vite retorne apenas o caminho do arquivo
 // e não tente processá-lo como módulo JS, evitando o erro "Assets in public directory cannot be imported".
-const mainCarouselImages = import.meta.glob(['../public/assets/carrousel/*.{jpg,jpeg,png,webp}'], { eager: true, query: '?url', import: 'default' });
+const mainCarouselImages = import.meta.glob(['../src/assets/carrousel/*.{jpg,jpeg,png,webp}'], { eager: true, query: '?url', import: 'default' });
 const mainCarouselTrack = document.getElementById('main-carousel-track');
 const dotsContainer = document.querySelector('.absolute.bottom-12.left-1\\/2');
 
@@ -81,24 +81,17 @@ let slideInterval;
 function initMainCarousel() {
   if (!mainCarouselTrack) return;
 
-  mainCarouselTrack.innerHTML = ''; // Limpar container
+  mainCarouselTrack.innerHTML = '';
 
-  // Pegar container de dots existente e limpar (mantendo a div container)
   const dotsWrapper = document.querySelector('.absolute.bottom-12.left-1\\/2.z-30.flex.gap-3');
   if (dotsWrapper) dotsWrapper.innerHTML = '';
 
   const images = [];
-  // Processar caminhos das imagens
   for (const path in mainCarouselImages) {
     const filename = path.split('/').pop();
-    // mainCarouselImages[path] retorna a URL (ex: /assets/carrousel/img1.png ou a string data: se fosse pequeno e inlined)
-    // O Vite resolve isso corretamente tanto em dev quanto em build
     const imgSrc = mainCarouselImages[path];
     images.push({ filename, imgSrc });
   }
-
-  // Ordenar imagens (opcional, por enquanto ordem de leitura)
-  // images.sort((a, b) => a.filename.localeCompare(b.filename));
 
   images.forEach((img, index) => {
     const config = carouselData[img.filename] || {
@@ -108,16 +101,22 @@ function initMainCarousel() {
       btnText: 'Fale Conosco'
     };
 
-    // Criar Slide
     const slide = document.createElement('div');
-    slide.className = `carousel-item absolute inset-0 items-center justify-center text-center px-4 overflow-hidden ${index === 0 ? 'active' : ''}`;
+    // Mantive o flex e h-full para garantir o alinhamento central do conteúdo
+    slide.className = `carousel-item absolute inset-0 flex items-center justify-center text-center px-4 overflow-hidden ${index === 0 ? 'active' : ''}`;
+
     slide.innerHTML = `
-      <div class="absolute inset-0 bg-cover bg-center blur-sm scale-110" style="background-image: url('${img.imgSrc}');"></div>
-      <div class="absolute inset-0 bg-brand-dark/70"></div>
-      <div class="absolute inset-0 bg-contain bg-center bg-no-repeat opacity-80 mix-blend-overlay" style="background-image: url('${img.imgSrc}');"></div>
+      <div class="absolute inset-0 bg-cover bg-center blur-md scale-110 opacity-40" 
+           style="background-image: url('${img.imgSrc}');"></div>
+      
+      <div class="absolute inset-0 bg-brand-dark/60"></div>
+
+      <div class="absolute inset-0 bg-cover bg-center bg-no-repeat mix-blend-normal" 
+           style="background-image: url('${img.imgSrc}');"></div>
+      
       <div class="relative z-10 max-w-4xl mx-auto pt-20">
-        <h1 class="text-4xl md:text-7xl font-bold text-white mb-6">${config.title}</h1>
-        <p class="text-lg md:text-xl text-gray-200 mb-8 max-w-2xl mx-auto">${config.text}</p>
+        <h1 class="text-4xl md:text-7xl font-bold text-white mb-6 drop-shadow-2xl">${config.title}</h1>
+        <p class="text-lg md:text-xl text-gray-200 mb-8 max-w-2xl mx-auto drop-shadow-md">${config.text}</p>
         <a href="${config.link}" class="inline-block bg-brand-primary hover:bg-blue-900 text-white font-bold py-4 px-10 rounded-full transition-all transform hover:scale-105 shadow-xl border border-white/10">
           ${config.btnText}
         </a>
@@ -125,7 +124,6 @@ function initMainCarousel() {
     `;
     mainCarouselTrack.appendChild(slide);
 
-    // Criar Dot
     if (dotsWrapper) {
       const dot = document.createElement('div');
       dot.className = `dot h-2 w-8 rounded-full bg-white/30 transition-all cursor-pointer ${index === 0 ? 'active' : ''}`;
@@ -134,11 +132,8 @@ function initMainCarousel() {
     }
   });
 
-  // Atualizar referências
   slides = document.querySelectorAll('.carousel-item');
   dots = document.querySelectorAll('.dot');
-
-  // Iniciar timer
   startCarouselTimer();
 }
 
@@ -217,24 +212,21 @@ function filterServices(category) {
 
 // --- DADOS DOS SERVIÇOS (MOCK) ---
 // Coleta todas as imagens da pasta public para uso dinâmico nos modais
-const allPublicImages = import.meta.glob('../public/**/*.{jpg,jpeg,png,webp}', { eager: true });
+const allPublicImages = import.meta.glob('../src/assets/**/*.{jpg,jpeg,png,webp}', {
+  eager: true,
+  query: '?url',
+  import: 'default'
+});
 
 function getImagesForService(serviceId) {
   const images = [];
-  const basePath = '/2eng_solucoes/'; // Base URL conforme vite.config.js
 
   for (const path in allPublicImages) {
-    // path ex: "../public/engenharia/obras/imagem.jpg"
-    // Verifica se a imagem está na pasta correspondente ao serviceId (dentro de qualquer categoria)
-    // Usamos `/${serviceId}/` para garantir que estamos pegando a pasta exata do serviço
+    // O Vite transforma "../src/assets/obras/foto.jpg" em algo como "/assets/foto.hash.jpg"
+    // Verificamos se o caminho original contém a pasta do serviço
     if (path.includes(`/${serviceId}/`)) {
-      // Precisamos reconstruir o caminho relativo correto para o navegador
-      // O path original é algo como "../public/engenharia/obras/img.jpg"
-      // Queremos algo como "/2eng_solucoes/engenharia/obras/img.jpg"
-
-      // Extrai a parte depois de "public/"
-      const relativePath = path.split('/public/')[1];
-      images.push(`${basePath}${relativePath}`);
+      // O valor em allPublicImages[path] já é a URL final processada pelo Vite
+      images.push(allPublicImages[path]);
     }
   }
   return images;
