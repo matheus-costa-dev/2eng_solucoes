@@ -5,4 +5,4 @@ export default defineConfig({
   plugins: [tailwindcss()],
   // Garante que os links funcionem no GitHub Pages
   base: '/',
-});n
+});
