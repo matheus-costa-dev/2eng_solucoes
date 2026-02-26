@@ -1,0 +1,34 @@
+<nav id="main-navbar"
+    class="fixed top-0 left-0 w-full z-50 bg-brand-dark/90 backdrop-blur-md border-b border-white/10 text-white shadow-lg">
+    <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+        <a routerLink="/" class="flex items-center gap-4 h-full">
+            <img src="assets/2_eng_logo_sem_bg.png" alt="2_eng_logo" class="h-16 md:h-28 w-auto object-contain py-1"
+                id="logo">
+            <div class="text-lg md:text-2xl font-bold tracking-tight leading-tight">
+                2 ENG <span class="text-brand-accent">SERVIÇOS</span>
+            </div>
+        </a>
+
+        <div class="flex items-center gap-8">
+            <div class="hidden md:flex gap-8 text-sm font-medium tracking-wide">
+                <a routerLink="/" fragment="sobre" class="hover:text-brand-accent transition-colors relative group py-2">
+                    Sobre <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-brand-accent transition-all group-hover:w-full"></span>
+                </a>
+                <a routerLink="/portfolio" routerLinkActive="text-brand-accent border-b-2 border-brand-accent" class="hover:text-brand-accent transition-colors relative group py-2">
+                    Portfólio <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-brand-accent transition-all group-hover:w-full"></span>
+                </a>
+                <a routerLink="/" fragment="contato" class="hover:text-brand-accent transition-colors relative group py-2">
+                    Contato <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-brand-accent transition-all group-hover:w-full"></span>
+                </a>
+            </div>
+
+            <div class="flex items-center gap-4 border-l border-white/20 pl-6">
+                <button (click)="toggleTheme()"
+                    class="hover:text-brand-accent transition-colors p-2 rounded-full hover:bg-white/10"
+                    aria-label="Alternar tema">
+                    <i id="theme-icon" [ngClass]="isDarkTheme ? 'fas fa-sun' : 'fas fa-moon'" class="text-lg"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</nav>

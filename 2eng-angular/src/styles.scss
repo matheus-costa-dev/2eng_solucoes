@@ -1,0 +1,97 @@
+@import '@fortawesome/fontawesome-free/css/all.min.css';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 80px; /* offset for fixed header */
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* --- ESTILOS CUSTOMIZADOS --- */
+
+/* Carrossel */
+.carousel-item {
+    transition: opacity 0.8s ease-in-out;
+    display: none;
+}
+
+.carousel-item.active {
+    display: flex;
+    opacity: 1;
+}
+
+.dot.active {
+    /* Usando a variável definida no @theme */
+    background-color: var(--color-brand-primary);
+    width: 24px;
+}
+
+/* Glassmorphism */
+.glass-control {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Cards de serviço */
+.service-card {
+    transition: all 0.3s ease;
+}
+
+.service-card.hidden {
+    display: none;
+}
+
+.service-card:hover {
+    transform: translateY(-5px);
+}
+
+/* Filtros */
+.filter-btn.active {
+    background-color: var(--color-brand-primary);
+    color: white;
+    border-color: var(--color-brand-primary);
+}
+
+/* Navbar */
+#main-navbar {
+    transition: transform 0.3s ease-in-out, background-color 0.3s ease;
+}
+
+#main-navbar.hidden-nav {
+    transform: translateY(-100%);
+}
+
+/* --- AJUSTES DE DARK MODE --- */
+/* Dica: Com o Tailwind v4, muitas dessas classes abaixo você poderia
+   substituir direto no HTML usando as classes brand, ex: dark:bg-brand-dark */
+
+.dark .bg-gray-50 {
+    background-color: var(--color-brand-dark);
+}
+
+.dark .text-gray-900 {
+    color: var(--color-brand-text);
+}
+
+.dark .text-gray-600 {
+    color: var(--color-brand-subtext);
+}
+
+.dark .bg-white {
+    background-color: var(--color-brand-card);
+}
+
+.dark .border-gray-100,
+.dark .border-gray-200 {
+    border-color: #334155;
+}
