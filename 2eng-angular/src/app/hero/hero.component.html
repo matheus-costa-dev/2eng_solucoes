@@ -3,48 +3,48 @@
     <div id="main-carousel-track" class="absolute inset-0 w-full h-full text-center">
         <!-- Renderização Dinâmica -->
         @for (slide of slides; track slide.title; let i = $index) {
-          <div class="carousel-item absolute inset-0 flex items-center justify-center text-center px-4 overflow-hidden"
-               [class.active]="i === currentIndex" [style.display]="i === currentIndex ? 'flex' : 'none'">
-              
-              <!-- Background com Blur -->
-              <div class="absolute inset-0 bg-cover bg-center blur-md scale-110 opacity-40" 
-                   [style.background-image]="'url(' + slide.background.url + ')'"></div>
-              
-              <div class="absolute inset-0 bg-brand-dark/60"></div>
-        
-              <!-- Imagem Real -->
-              <div class="absolute inset-0 bg-cover bg-center bg-no-repeat mix-blend-normal" 
-                   [style.background-image]="'url(' + slide.background.url + ')'"></div>
-              
-              <div class="relative z-10 max-w-4xl mx-auto pt-20">
+        <div class="carousel-item absolute inset-0 flex items-center justify-center text-center px-4 overflow-hidden"
+            [class.active]="i === currentIndex" [style.display]="i === currentIndex ? 'flex' : 'none'">
+
+            <!-- Background com Blur -->
+            <div class="absolute inset-0 bg-cover bg-center blur-md scale-110 opacity-40"
+                [style.background-image]="'url(' + slide.background.url + ')'"></div>
+
+            <div class="absolute inset-0 bg-brand-dark/60"></div>
+
+            <!-- Imagem Real -->
+            <div class="absolute inset-0 bg-center bg-no-repeat mix-blend-normal" [style.background-size]="'100% 100%'"
+                [style.background-image]="'url(' + slide.background.url + ')'"></div>
+
+            <div class="relative z-10 max-w-4xl mx-auto pt-20">
                 <h1 class="text-4xl md:text-7xl font-bold text-white mb-6 drop-shadow-2xl">{{ slide.title }}</h1>
                 <p class="text-lg md:text-xl text-gray-200 mb-8 max-w-2xl mx-auto drop-shadow-md">{{ slide.text }}</p>
-                <a [href]="slide.link" class="inline-block bg-brand-primary hover:bg-blue-900 text-white font-bold py-4 px-10 rounded-full transition-all transform hover:scale-105 shadow-xl border border-white/10">
-                  {{ slide.btnText }}
+                <a [href]="slide.link"
+                    class="inline-block bg-brand-primary hover:bg-blue-900 text-white font-bold py-4 px-10 rounded-full transition-all transform hover:scale-105 shadow-xl border border-white/10">
+                    {{ slide.btnText }}
                 </a>
-              </div>
-          </div>
+            </div>
+        </div>
         }
     </div>
 
     <!-- Controlos Carrossel -->
     @if (slides.length > 1) {
-      <button (click)="prevSlide()"
-          class="absolute cursor-pointer left-6 top-1/2 -translate-y-1/2 z-30 p-4 rounded-full glass-control text-white hover:bg-white/20 transition-all hidden md:block">
-          <i class="fas fa-chevron-left text-xl"></i>
-      </button>
-      <button (click)="nextSlide()"
-          class="absolute cursor-pointer right-6 top-1/2 -translate-y-1/2 z-30 p-4 rounded-full glass-control text-white hover:bg-white/20 transition-all hidden md:block">
-          <i class="fas fa-chevron-right text-xl"></i>
-      </button>
+    <button (click)="prevSlide()"
+        class="absolute cursor-pointer left-6 top-1/2 -translate-y-1/2 z-30 p-4 rounded-full glass-control text-white hover:bg-white/20 transition-all hidden md:block">
+        <i class="fas fa-chevron-left text-xl"></i>
+    </button>
+    <button (click)="nextSlide()"
+        class="absolute cursor-pointer right-6 top-1/2 -translate-y-1/2 z-30 p-4 rounded-full glass-control text-white hover:bg-white/20 transition-all hidden md:block">
+        <i class="fas fa-chevron-right text-xl"></i>
+    </button>
     }
 
     <!-- Indicadores (Dots) -->
     <div class="absolute bottom-12 left-1/2 -translate-x-1/2 z-30 flex gap-3">
         @for (slide of slides; track slide.title; let i = $index) {
-            <div class="dot h-2 w-8 rounded-full bg-white/30 transition-all cursor-pointer"
-                [class.active]="i === currentIndex"
-                (click)="goToSlide(i)"></div>
+        <div class="dot h-2 w-8 rounded-full bg-white/30 transition-all cursor-pointer"
+            [class.active]="i === currentIndex" (click)="goToSlide(i)"></div>
         }
     </div>
 
@@ -55,4 +55,3 @@
         </a>
     </div>
 </section>
-

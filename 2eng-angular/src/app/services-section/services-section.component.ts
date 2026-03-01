@@ -26,13 +26,13 @@ export class ServicesSectionComponent implements OnInit {
         this.services = data;
         this.isLoading = false;
         if (data.length === 0) {
-            this.apiError = true;
+          this.apiError = true;
         }
       },
       error: (err) => {
-          console.error('Error fetching services:', err);
-          this.isLoading = false;
-          this.apiError = true;
+        console.error('Error fetching services:', err);
+        this.isLoading = false;
+        this.apiError = true;
       }
     });
   }
@@ -41,8 +41,16 @@ export class ServicesSectionComponent implements OnInit {
     this.selectedCategory = category;
   }
 
+  private normalizeStr(str: string): string {
+    return str ? str.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase() : '';
+  }
+
   get filteredServices() {
-    return this.services.filter(service => service.category.toLowerCase() === this.selectedCategory.toLowerCase() || service.category.includes(this.selectedCategory));
+    const selected = this.normalizeStr(this.selectedCategory);
+    return this.services.filter(service => {
+      const cat = this.normalizeStr(service.category);
+      return cat === selected || cat.includes(selected);
+    });
   }
 
   openServiceModal(service: ServiceData) {
