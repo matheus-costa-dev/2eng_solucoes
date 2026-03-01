@@ -23,6 +23,23 @@ export interface ServiceData {
   }[];
 }
 
+export interface TestimonialData {
+  name: string;
+  role: string;
+  text: string;
+  rating?: number;
+  avatar?: {
+    url: string;
+  };
+}
+
+export interface ClientData {
+  name: string;
+  logo: {
+    url: string;
+  };
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -52,7 +69,7 @@ export class HygraphService {
         }
       }
     `;
-    
+
     return this.http.post<any>(this.endpoint, { query }, { headers: this.headers }).pipe(
       map(res => res.data?.slides || []),
       catchError(error => {
@@ -84,5 +101,49 @@ export class HygraphService {
         return of([]);
       })
     );
+  }
+
+  getTestimonials(): Observable<TestimonialData[]> {
+    const query = `
+      query GetTestimonials {
+        testimonials(first: 20) {
+          name
+          role
+          text
+          rating
+          avatar {
+            url
+          }
+        }
+      }
+    `;
+    return this.http.post<any>(this.endpoint, { query }, { headers: this.headers })
+      .pipe(
+        map(res => res.data.testimonials),
+        catchError(this.handleError)
+      );
+  }
+
+  getClients(): Observable<ClientData[]> {
+    const query = `
+      query GetClients {
+        clients(first: 20) {
+          name
+          logo {
+            url
+          }
+        }
+      }
+    `;
+    return this.http.post<any>(this.endpoint, { query }, { headers: this.headers })
+      .pipe(
+        map(res => res.data.clients),
+        catchError(this.handleError)
+      );
+  }
+
+  private handleError(error: any) {
+    console.error('An error occurred:', error);
+    return of([]);
   }
 }

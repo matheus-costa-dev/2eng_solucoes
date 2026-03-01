@@ -1,0 +1,49 @@
+<section class="py-20 bg-gray-50 dark:bg-[#0B1220] transition-colors duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+            <h2 class="text-3xl font-extrabold text-gray-900 dark:text-brand-text uppercase tracking-tight">Depoimentos
+                dos Clientes</h2>
+            <div class="w-24 h-1 bg-brand-primary mx-auto mt-4 rounded-full"></div>
+        </div>
+
+        @if (isLoading) {
+        <div class="flex justify-center items-center py-10">
+            <div class="animate-spin rounded-full h-12 w-12 border-t-4 border-b-4 border-brand-primary"></div>
+        </div>
+        } @else {
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 px-4">
+            @for (item of testimonials; track item.name) {
+            <div
+                class="bg-white dark:bg-slate-800 p-8 rounded-2xl shadow-sm border border-gray-100 dark:border-slate-700 text-center transition-all duration-300 hover:-translate-y-2 hover:shadow-xl group">
+
+                <!-- Avatar -->
+                <div class="w-20 h-20 mx-auto rounded-full mb-6 flex items-center justify-center text-3xl text-brand-primary dark:text-blue-400 shadow-inner overflow-hidden"
+                    [class.bg-gray-100]="!item.avatar" [class.dark:bg-slate-700]="!item.avatar">
+                    @if (item.avatar?.url) {
+                    <img [src]="item.avatar?.url" [alt]="item.name" loading="lazy" class="w-full h-full object-cover">
+                    } @else {
+                    <i class="fas fa-user"></i>
+                    }
+                </div>
+
+                <!-- Stars -->
+                <div class="mb-6 flex justify-center text-yellow-400 gap-1 text-sm">
+                    @for (star of getArray(item.rating || 5); track $index) {
+                    <i class="fas fa-star"></i>
+                    }
+                </div>
+
+                <p class="text-gray-600 dark:text-brand-subtext italic mb-6 leading-relaxed">"{{ item.text }}"</p>
+                <h4 class="font-bold text-gray-900 dark:text-brand-text text-lg">{{ item.name }}</h4>
+                <p class="text-sm text-gray-500 dark:text-gray-400 mt-1 uppercase tracking-wider text-xs">{{ item.role
+                    }}</p>
+            </div>
+            }
+        </div>
+
+        @if (testimonials.length === 0) {
+        <div class="text-center text-gray-500 py-10">Nenhum depoimento cadastrado.</div>
+        }
+        }
+    </div>
+</section>

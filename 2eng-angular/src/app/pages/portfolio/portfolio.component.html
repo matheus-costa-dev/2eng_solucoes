@@ -1,2 +1,106 @@
+<!-- Hero Section -->
+<section class="relative bg-brand-dark overflow-hidden pt-20 pb-32 lg:pt-32 lg:pb-48 min-h-[500px]">
+    <!-- Carousel Backgrounds -->
+    <div class="absolute inset-0 z-0">
+        @for (slide of slides; track slide.title) {
+        <div class="carousel-item absolute inset-0 w-full h-full bg-cover bg-center transition-opacity duration-1000 ease-in-out"
+            [class.opacity-100]="slides.indexOf(slide) === currentIndex"
+            [class.opacity-0]="slides.indexOf(slide) !== currentIndex"
+            [style.backgroundImage]="'url(' + slide.background.url + ')'">
+        </div>
+        }
+        <!-- Fallback Dark Overlay over images -->
+        <div
+            class="absolute inset-0 bg-brand-primary/80 dark:bg-brand-dark/80 mix-blend-multiply flex items-center justify-center">
+            @if (slides.length === 0) {
+            <i
+                class="fas fa-hard-hat text-white/5 text-[20rem] absolute transform -rotate-12 translate-x-1/2 -translate-y-1/4"></i>
+            <i
+                class="fas fa-building text-white/5 text-[30rem] absolute transform translate-x-[-80%] translate-y-1/4"></i>
+            }
+        </div>
+    </div>
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center lg:text-left z-10 pt-16">
+        <div class="lg:w-2/3">
+            <h1
+                class="text-4xl tracking-tight font-extrabold text-white sm:text-5xl md:text-6xl uppercase leading-tight">
+                <span class="block">Prontidão na</span>
+                <span class="block text-blue-200">Construção Geral</span>
+                <span class="block">e Engenharia</span>
+            </h1>
+            <p
+                class="mt-4 text-base text-gray-200 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0">
+                Um projeto prima em uma variada gama geral de construção e engenharia, entregando excelência e
+                compromisso com o cliente.
+            </p>
+            <div class="mt-8 sm:flex sm:justify-center lg:justify-start">
+                <div class="rounded-md shadow">
+                    <a href="#servicos"
+                        class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-500 md:py-4 md:text-lg transition-colors">
+                        Consulte-nos
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Empresas Que Já Prestamos Serviços -->
+<section
+    class="py-16 bg-white dark:bg-brand-dark transition-colors duration-300 border-b border-gray-100 dark:border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-10">
+            <h3 class="text-2xl font-bold text-gray-900 dark:text-brand-text uppercase tracking-wide">Empresas Que Já
+                Prestamos Serviços</h3>
+        </div>
+        <div class="flex flex-wrap justify-center items-center gap-10 md:gap-16 transition-all duration-500">
+
+            @if (clients.length > 0) {
+            @for (client of clients; track client.name) {
+            <div class="text-gray-900 dark:text-brand-text font-bold text-2xl flex items-center gap-2 hover:scale-105 transition-transform duration-300"
+                [title]="client.name">
+                @if (client.logo && client.logo.url) {
+                <img [src]="client.logo.url" [alt]="client.name"
+                    class="h-12 md:h-16 object-contain transition-all duration-300">
+                } @else {
+                <span>{{ client.name }}</span>
+                }
+            </div>
+            }
+            } @else {
+            <!-- Fallback placeholders se não houver clientes cadastrados no CMS -->
+            <div
+                class="text-gray-900 dark:text-brand-text font-bold text-2xl flex items-center gap-2 hover:scale-105 transition-transform duration-300">
+                <div
+                    class="w-8 h-8 rounded-full bg-blue-600 dark:bg-blue-500 flex items-center justify-center text-white text-sm">
+                    <i class="fas fa-circle-notch"></i>
+                </div> TOTVS
+            </div>
+            <div
+                class="text-gray-900 dark:text-brand-text font-bold text-2xl flex items-center gap-2 hover:scale-105 transition-transform duration-300">
+                <div class="w-6 h-6 border-4 border-green-600 dark:border-green-500 transform rotate-45"></div> VALE
+            </div>
+            <div
+                class="text-green-700 dark:text-green-500 font-extrabold text-2xl tracking-tighter flex flex-col items-center leading-none hover:scale-105 transition-transform duration-300">
+                <span class="text-yellow-500 text-sm">BR</span>
+                PETROBRAS
+            </div>
+            <div
+                class="text-blue-900 dark:text-blue-400 font-bold text-2xl italic tracking-wider hover:scale-105 transition-transform duration-300">
+                EMBRAER
+            </div>
+            <div
+                class="text-blue-800 dark:text-blue-300 font-bold text-3xl font-serif hover:scale-105 transition-transform duration-300">
+                Nestlé
+            </div>
+            }
+        </div>
+    </div>
+</section>
+
+<!-- Depoimentos dos Clientes (via componente centralizado e consumindo API Hygraph) -->
+<app-testimonials-section></app-testimonials-section>
+
+<!-- Componente de Serviços Original reestilizado (Construção Geral) -->
 <app-services-section></app-services-section>
 <app-service-modal></app-service-modal>
