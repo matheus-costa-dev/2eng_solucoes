@@ -15,7 +15,7 @@ export class ServicesSectionComponent implements OnInit {
   private modalService = inject(ModalService);
 
   services: ServiceData[] = [];
-  categories: string[] = ['Engenharia', 'Diagnóstica', 'Manutenção', 'Especiais'];
+  categories: string[] = ['Engenharia', 'Diagnóstico', 'Manutenção', 'Especiais'];
   selectedCategory = 'Engenharia';
   isLoading = true;
   apiError = false;

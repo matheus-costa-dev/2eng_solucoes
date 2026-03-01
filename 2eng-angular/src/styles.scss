@@ -56,11 +56,7 @@ body {
 }
 
 /* Filtros */
-.filter-btn.active {
-    background-color: var(--color-brand-primary);
-    color: white;
-    border-color: var(--color-brand-primary);
-}
+/* Removed .filter-btn.active because it used undefined vars and conflicted with inline Tailwind classes */
 
 /* Navbar */
 #main-navbar {
