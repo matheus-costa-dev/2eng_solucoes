@@ -8,7 +8,8 @@
 
 html {
     scroll-behavior: smooth;
-    scroll-padding-top: 80px; /* offset for fixed header */
+    scroll-padding-top: 80px;
+    /* offset for fixed header */
 }
 
 body {
@@ -90,4 +91,32 @@ body {
 .dark .border-gray-100,
 .dark .border-gray-200 {
     border-color: #334155;
+}
+
+/* Infinite Logo Marquee Carousel */
+.logos-slide-container {
+    overflow: hidden;
+    white-space: nowrap;
+    position: relative;
+    width: 100%;
+}
+
+.logos-slide-track {
+    display: inline-flex;
+    animation: 20s slide infinite linear;
+    align-items: center;
+}
+
+.logos-slide-track:hover {
+    animation-play-state: paused;
+}
+
+@keyframes slide {
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(-50%);
+    }
 }
