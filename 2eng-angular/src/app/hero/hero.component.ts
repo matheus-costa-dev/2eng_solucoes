@@ -1,6 +1,6 @@
-import { Component, OnInit, OnDestroy, inject } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HygraphService, SlideData } from '../services/hygraph.service';
+import { SlideData } from '../services/hygraph.service';
 
 @Component({
   selector: 'app-hero',
@@ -10,21 +10,13 @@ import { HygraphService, SlideData } from '../services/hygraph.service';
   styleUrl: './hero.component.scss'
 })
 export class HeroComponent implements OnInit, OnDestroy {
-  private hygraph = inject(HygraphService);
+  @Input() slides: SlideData[] = [];
 
-  slides: SlideData[] = [];
   currentIndex = 0;
   private intervalId: any;
 
   ngOnInit() {
-    this.hygraph.getSlides().subscribe({
-      next: (data) => {
-        this.slides = data;
-        console.log('Slides Data from Hygraph:', data); // Verification log
-        this.startTimer();
-      },
-      error: (err) => console.error('Error fetching slides:', err)
-    });
+    this.startTimer();
   }
 
   ngOnDestroy() {
