@@ -3,13 +3,12 @@ import { CommonModule } from '@angular/common';
 import { HeroComponent } from '../../hero/hero.component';
 import { AboutComponent } from '../../components/about/about.component';
 import { SolutionsComponent } from '../../components/solutions/solutions.component';
-import { ServiceModalComponent } from '../../components/service-modal/service-modal.component';
 import { HygraphService, SlideData, ServiceData } from '../../services/hygraph.service';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, HeroComponent, AboutComponent, SolutionsComponent, ServiceModalComponent],
+  imports: [CommonModule, HeroComponent, AboutComponent, SolutionsComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
