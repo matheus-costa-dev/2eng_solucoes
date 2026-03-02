@@ -1,25 +1,18 @@
-@import '@fortawesome/fontawesome-free/css/all.min.css';
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+@custom-variant dark (&:where(.dark, .dark *));
+@import "tailwindcss";
 
 
-
-
-html {
-    scroll-behavior: smooth;
-    scroll-padding-top: 80px;
-    /* offset for fixed header */
-}
-
-:root {
+/* Configuração de Tema do Tailwind v4 */
+@theme {
     --color-brand-primary: #1E40AF;
     --color-brand-accent: #F59E0B;
-    --color-brand-dark: #0B1220;
-    --color-brand-card: #1E293B;
+    --color-brand-dark: #1E293B;
+    --color-brand-card: #0B1220;
     --color-brand-text: #E5E7EB;
     --color-brand-subtext: #94A3B8;
 }
+
 
 body {
     font-family: 'Inter', sans-serif;
@@ -66,7 +59,11 @@ body {
 }
 
 /* Filtros */
-/* Removed .filter-btn.active because it used undefined vars and conflicted with inline Tailwind classes */
+.filter-btn.active {
+    background-color: var(--color-brand-primary);
+    color: white;
+    border-color: var(--color-brand-primary);
+}
 
 /* Navbar */
 #main-navbar {
@@ -100,32 +97,4 @@ body {
 .dark .border-gray-100,
 .dark .border-gray-200 {
     border-color: #334155;
-}
-
-/* Infinite Logo Marquee Carousel */
-.logos-slide-container {
-    overflow: hidden;
-    white-space: nowrap;
-    position: relative;
-    width: 100%;
-}
-
-.logos-slide-track {
-    display: inline-flex;
-    animation: 20s slide infinite linear;
-    align-items: center;
-}
-
-.logos-slide-track:hover {
-    animation-play-state: paused;
-}
-
-@keyframes slide {
-    from {
-        transform: translateX(0);
-    }
-
-    to {
-        transform: translateX(-50%);
-    }
 }

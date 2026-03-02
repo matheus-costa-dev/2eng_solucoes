@@ -1,7 +1,7 @@
 <section id="inicio" class="relative h-screen w-full overflow-hidden bg-brand-dark">
     <!-- Container dos Slides -->
     <div id="main-carousel-track" class="absolute inset-0 w-full h-full text-center">
-        <!-- Renderização Dinâmica -->
+        <!-- Renderização Dinâmica -->Recuperação da estabilidade e aumento de carga de estruturas.
         @for (slide of slides; track slide.title; let i = $index) {
         <div class="carousel-item absolute inset-0 flex items-center justify-center text-center px-4 overflow-hidden"
             [class.active]="i === currentIndex" [style.display]="i === currentIndex ? 'flex' : 'none'">
