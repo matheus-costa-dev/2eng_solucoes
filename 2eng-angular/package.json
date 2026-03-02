@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "config": "node scripts/setenv.js",
+    "config": "node scripts/setenv.js && node scripts/generate-assets-list.js",
     "start": "npm run config && ng serve",
     "build": "npm run config && ng build",
     "watch": "npm run config && ng build --watch --configuration development",
