@@ -62,7 +62,7 @@
 
         <ng-template #clientsList>
             @for (client of clients; track client.name) {
-            <div class="text-gray-900 dark:text-brand-text font-bold text-2xl flex items-center gap-2 hover:scale-105 transition-transform duration-300"
+            <div class="text-gray-900 dark:text-brand-text font-bold text-2xl flex items-center gap-2 hover:scale-105 transition-transform duration-300 shrink-0"
                 [title]="client.name">
                 @if (client.logo && client.logo.url) {
                 <img [src]="client.logo.url" [alt]="client.name"
@@ -75,21 +75,22 @@
         </ng-template>
 
         <ng-template #fallbackLogos>
-            <div class="text-gray-900 dark:text-brand-text font-bold text-2xl flex items-center gap-2">
+            <div class="text-gray-900 dark:text-brand-text font-bold text-2xl flex items-center gap-2 shrink-0">
                 <div
                     class="w-8 h-8 rounded-full bg-blue-600 dark:bg-blue-500 flex items-center justify-center text-white text-sm">
                     <i class="fas fa-circle-notch"></i>
                 </div> TOTVS
             </div>
-            <div class="text-gray-900 dark:text-brand-text font-bold text-2xl flex items-center gap-2">
+            <div class="text-gray-900 dark:text-brand-text font-bold text-2xl flex items-center gap-2 shrink-0">
                 <div class="w-6 h-6 border-4 border-green-600 dark:border-green-500 transform rotate-45"></div> VALE
             </div>
             <div
-                class="text-green-700 dark:text-green-500 font-extrabold text-2xl tracking-tighter flex flex-col items-center leading-none">
+                class="text-green-700 dark:text-green-500 font-extrabold text-2xl tracking-tighter flex flex-col items-center leading-none shrink-0">
                 <span class="text-yellow-500 text-sm">BR</span>PETROBRAS
             </div>
-            <div class="text-blue-900 dark:text-blue-400 font-bold text-2xl italic tracking-wider">EMBRAER</div>
-            <div class="text-blue-800 dark:text-blue-300 font-bold text-3xl font-serif">Nestlé</div>
+            <div class="text-blue-900 dark:text-blue-400 font-bold text-2xl italic tracking-wider shrink-0">EMBRAER
+            </div>
+            <div class="text-blue-800 dark:text-blue-300 font-bold text-3xl font-serif shrink-0">Nestlé</div>
         </ng-template>
     </div>
 </section>
