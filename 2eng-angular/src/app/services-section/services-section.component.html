@@ -1,25 +1,20 @@
-<section id="servicos" class="py-20 px-4 md:px-6 bg-gray-100 dark:bg-[#0B1220] transition-colors duration-300">
+<section id="servicos" class="py-24 px-4 md:px-6 bg-[#eaeaea] dark:bg-[#0B1220] transition-colors duration-300">
     <div class="max-w-7xl mx-auto">
-        <div class="max-w-7xl mx-auto px-6 mb-16 text-center">
-            <h2 class="text-4xl font-extrabold text-slate-900 dark:text-white mb-4 uppercase tracking-tight">
-                Construção Geral</h2>
-            <p class="text-brand-subtext text-lg">Nossas soluções e expertises aplicadas na área de engenharia e
-                construção civil.</p>
-            <div class="w-24 h-1 bg-brand-primary mt-6 rounded-full"></div>
-        </div>
-
-        <!-- Filtros (Abas) -->
-        <div
-            class="flex flex-wrap justify-start gap-2 md:gap-4 mb-12 border-b border-gray-200 dark:border-slate-700 pb-4">
-            @for (category of categories; track category) {
-            <button (click)="filterServices(category)"
-                class="filter-btn cursor-pointer px-6 py-2 rounded-full border border-gray-200 dark:border-slate-700 transition-all font-medium text-sm md:text-base border-solid"
-                [ngClass]="selectedCategory === category 
-                    ? 'bg-brand-primary text-white border-brand-primary hover:text-white' 
-                    : 'bg-gray-50 dark:bg-slate-800 text-gray-600 dark:text-gray-300 hover:border-brand-primary hover:text-brand-primary dark:hover:text-blue-400'">
-                {{ category }}
-            </button>
-            }
+        <!-- Header based on the image -->
+        <div class="max-w-3xl mx-auto px-6 mb-20 text-center">
+            <div class="flex justify-center mb-6">
+                <!-- Decorative dot like in the image -->
+                <div
+                    class="w-3 h-3 bg-gradient-to-br from-gray-400 to-gray-600 rounded-full shadow-[0_4px_4px_rgba(0,0,0,0.25)] border-2 border-white dark:border-gray-800">
+                </div>
+            </div>
+            <h2 class="text-4xl md:text-[2.5rem] font-extrabold text-brand-accent mb-6 uppercase tracking-tight"
+                style="font-family: 'Inter', sans-serif;">
+                Portfólio de Obras</h2>
+            <p class="text-gray-600 dark:text-gray-400 text-base leading-relaxed max-w-2xl mx-auto">
+                Aplicamos nossas soluções e expertise na área de engenharia e construção civil, criando desde concepções
+                iniciais até detalhes finais de impacto estrutural.
+            </p>
         </div>
 
         @if (isLoading) {
@@ -36,44 +31,84 @@
                 do site já foi notificado. Por favor, tente novamente mais tarde.</p>
         </div>
         } @else {
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="services-grid">
-            @for (service of filteredServices; track service.title) {
-            <div (click)="openServiceModal(service)"
-                class="service-card flex flex-col bg-white dark:bg-slate-800 rounded-2xl overflow-hidden border border-gray-100 dark:border-slate-700 hover:border-blue-200 dark:hover:border-slate-600 hover:shadow-2xl hover:shadow-brand-primary/10 group cursor-pointer transition-all duration-300">
-                <div class="h-56 w-full bg-gray-200 dark:bg-slate-800 overflow-hidden relative">
-                    <!-- Overlay Color on Hover -->
-                    <div
-                        class="absolute inset-0 bg-brand-primary opacity-0 group-hover:opacity-20 transition-opacity duration-300 z-10">
+        <div class="flex flex-col gap-16 py-8 max-w-[900px] mx-auto">
+            @for (service of services; track service.title; let i = $index; let isEven = $even) {
+            <!-- Alternating Layout Container -->
+            <div class="flex flex-col md:flex-row items-center gap-8 lg:gap-12 w-full"
+                [ngClass]="{'md:flex-row-reverse': !isEven}">
+
+                <!-- Image / Carousel Container -->
+                <div class="w-full md:w-[50%] flex-shrink-0 relative group">
+                    <div class="relative w-full aspect-[4/3] bg-gray-200 dark:bg-slate-800 overflow-hidden shadow-sm">
+                        @if (service.images && service.images.length > 0) {
+                        @for (img of service.images; track img.url; let imgIndex = $index) {
+                        <img [src]="img.url" [alt]="service.title" loading="lazy"
+                            class="absolute inset-0 w-full h-full object-cover outline-none border-none transition-opacity duration-1000"
+                            [ngClass]="imgIndex === service.activeImageIndex ? 'opacity-100 z-10' : 'opacity-0 z-0'">
+                        }
+
+                        <!-- Carousel Controls (Show on Hover) -->
+                        @if (service.images.length > 1) {
+                        <div
+                            class="absolute bottom-4 right-4 z-20 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                            <button (click)="prevImage(service, $event)"
+                                class="w-8 h-8 rounded-full bg-black/60 text-white flex items-center justify-center hover:bg-black transition-colors"
+                                aria-label="Anterior">
+                                <i class="fas fa-chevron-left text-xs ml-[2px]"></i>
+                            </button>
+                            <button (click)="nextImage(service, $event)"
+                                class="w-8 h-8 rounded-full bg-black/60 text-white flex items-center justify-center hover:bg-black transition-colors"
+                                aria-label="Próxima">
+                                <i class="fas fa-chevron-right text-xs mr-[2px]"></i>
+                            </button>
+                        </div>
+                        <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 z-20 flex gap-1.5">
+                            @for (img of service.images; track img.url; let dotIndex = $index) {
+                            <div class="w-2 h-2 rounded-full transition-all duration-300"
+                                [ngClass]="dotIndex === service.activeImageIndex ? 'bg-white w-4' : 'bg-white/50'">
+                            </div>
+                            }
+                        </div>
+                        }
+                        } @else {
+                        <div class="w-full h-full flex items-center justify-center text-gray-400 dark:text-slate-600">
+                            <i class="fas fa-hammer text-6xl"></i>
+                        </div>
+                        }
                     </div>
-                    @if (service.images && service.images.length > 0) {
-                    <img [src]="service.images[0].url" [alt]="service.title" loading="lazy"
-                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out">
-                    } @else {
-                    <div
-                        class="w-full h-full flex items-center justify-center text-gray-400 dark:text-slate-600 group-hover:scale-110 transition-transform duration-700 ease-out">
-                        <i class="fas fa-hammer text-6xl"></i>
-                    </div>
-                    }
                 </div>
-                <div class="p-8 flex-1 flex flex-col">
+
+                <!-- Text Content Container -->
+                <div class="w-full md:w-[50%] flex flex-col justify-center items-start">
+                    <!-- Category Badge -->
                     <span
-                        class="text-brand-primary dark:text-blue-400 font-bold tracking-wider text-xs uppercase mb-3 block">{{
-                        service.category || 'Categoria Geral' }}</span>
-                    <h3 class="text-2xl font-extrabold mb-4 text-gray-900 dark:text-brand-text uppercase leading-tight">
-                        {{ service.title }}</h3>
-                    <p class="text-gray-600 dark:text-brand-subtext text-sm leading-relaxed mb-6 line-clamp-3 flex-1">{{
-                        service.description }}</p>
-                    <div
-                        class="pt-4 border-t border-gray-200 dark:border-slate-700 flex items-center justify-between text-brand-primary dark:text-blue-400 cursor-pointer font-bold text-sm uppercase tracking-wide group-hover:text-blue-700 dark:group-hover:text-blue-300 transition-colors">
-                        <span>Conferir Detalhes</span>
+                        class="inline-block bg-black dark:bg-brand-primary text-white text-[10px] font-bold px-4 py-1 rounded-full uppercase tracking-widest mb-4">
+                        {{ service.category || 'Categoria Geral' }}
+                    </span>
+
+                    <!-- Title -->
+                    <h3
+                        class="text-2xl lg:text-3xl font-extrabold text-slate-900 dark:text-white leading-[1.1] mb-4 tracking-tight">
+                        {{ service.title }}
+                    </h3>
+
+                    <!-- Description (Optional, shown if you want it or hidden based on image) -->
+                    <p class="text-gray-600 dark:text-gray-300 text-base leading-relaxed mb-8 hidden md:block">
+                        {{ service.description | slice:0:120 }}{{ service.description.length > 120 ? '...' : '' }}
+                    </p>
+
+                    <!-- See Details Link -->
+                    <button (click)="openServiceModal(service)"
+                        class="group flex items-center gap-2 text-slate-900 dark:text-white font-bold text-base border-b-[2px] border-slate-900 dark:border-white pb-1 hover:text-gray-600 dark:hover:text-gray-300 hover:border-gray-600 transition-colors">
+                        Ver Detalhes
                         <i
-                            class="fas fa-arrow-right transform group-hover:translate-x-2 transition-transform duration-300"></i>
-                    </div>
+                            class="fas fa-arrow-up right-0 transform rotate-45 group-hover:translate-x-[2px] group-hover:-translate-y-[2px] transition-transform text-sm"></i>
+                    </button>
                 </div>
             </div>
             }
             @empty {
-            <div class="col-span-full py-16 text-center text-gray-500 dark:text-gray-400">
+            <div class="w-full py-16 text-center text-gray-500 dark:text-gray-400">
                 <i class="fas fa-folder-open text-5xl mb-4 opacity-50"></i>
                 <p class="text-xl font-medium mb-2">Nenhum projeto encontrado</p>
                 <p class="text-gray-400 dark:text-gray-500">Ainda não há projetos cadastrados nesta categoria.</p>
