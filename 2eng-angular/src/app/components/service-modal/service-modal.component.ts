@@ -28,7 +28,8 @@ export class ServiceModalComponent implements OnInit, OnDestroy {
     this.subs.add(
       this.modalService.activeService$.subscribe(service => {
         this.service = service;
-        this.currentImageIndex = 0; // Reset gallery on open
+        // Reset gallery on open: if multiple images, start at index 1 to skip the initial clone
+        this.currentImageIndex = (service && service.images && service.images.length > 1) ? 1 : 0;
       })
     );
   }
