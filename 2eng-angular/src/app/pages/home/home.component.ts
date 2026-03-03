@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { HeroComponent } from '../../hero/hero.component';
 import { AboutComponent } from '../../components/about/about.component';
 import { SolutionsComponent } from '../../components/solutions/solutions.component';
-import { HygraphService, SlideData, ServiceData } from '../../services/hygraph.service';
+import { HygraphService, SlideData, ServiceHomeData } from '../../services/hygraph.service';
 
 @Component({
   selector: 'app-home',
@@ -16,15 +16,15 @@ export class HomeComponent implements OnInit {
   private hygraphService = inject(HygraphService);
 
   slides: SlideData[] = [];
-  services: ServiceData[] = [];
+  serviceHomes: ServiceHomeData[] = [];
 
   ngOnInit() {
     this.hygraphService.getSlides().subscribe((dados) => {
       this.slides = dados;
     });
 
-    this.hygraphService.getServices().subscribe((dados) => {
-      this.services = dados;
+    this.hygraphService.getServiceHomes().subscribe((dados) => {
+      this.serviceHomes = dados;
     });
   }
 }

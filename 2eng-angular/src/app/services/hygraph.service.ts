@@ -40,6 +40,13 @@ export interface ClientData {
   };
 }
 
+export interface ServiceHomeData {
+  serviceId: string;
+  images: {
+    url: string;
+  }[];
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -145,5 +152,35 @@ export class HygraphService {
   private handleError(error: any) {
     console.error('An error occurred:', error);
     return of([]);
+  }
+
+  getServiceHomes(): Observable<ServiceHomeData[]> {
+    const query = `
+      query GetServiceHomes {
+        serviceHomes(first: 50) {
+          serviceId
+          images {
+            url
+          }
+        }
+      }
+    `;
+    console.log("Sending query to Hygraph for ServiceHomes:", query);
+    return this.http.post<any>(this.endpoint, { query }, { headers: this.headers }).pipe(
+      map(res => {
+        if (res.errors) {
+          console.error('GraphQL Errors:', res.errors);
+        }
+        return res.data?.serviceHomes || [];
+      }),
+      catchError(error => {
+        console.error('Network Error fetching service homes:', error);
+        // Extract exact error body if possible
+        if (error.error) {
+          console.error('Inner error body:', error.error);
+        }
+        return of([]);
+      })
+    );
   }
 }

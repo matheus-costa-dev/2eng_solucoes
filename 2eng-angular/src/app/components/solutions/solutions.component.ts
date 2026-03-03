@@ -1,6 +1,6 @@
 import { Component, Input, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ServiceData } from '../../services/hygraph.service';
+import { ServiceData, ServiceHomeData } from '../../services/hygraph.service';
 import { ModalService } from '../../services/modal.service';
 import { SERVICE_IMAGES } from '../../data/service-images';
 
@@ -169,7 +169,7 @@ const SERVICES_DATA: Record<string, any> = {
   styleUrl: './solutions.component.scss'
 })
 export class SolutionsComponent implements OnInit {
-  @Input() services: ServiceData[] = [];
+  @Input() serviceHomes: ServiceHomeData[] = [];
   private modalService = inject(ModalService);
 
   selectedCategory: string = 'engenharia';
@@ -199,8 +199,8 @@ export class SolutionsComponent implements OnInit {
   openServiceModal(serviceId: string) {
     const data = SERVICES_DATA[serviceId];
     if (data) {
-      // Find matching dynamic data from Hygraph if exists to get real images
-      const matched = this.services.find(s => s.title.toLowerCase().includes(data.title.toLowerCase()));
+      // Find matching dynamic data from Hygraph based on exact serviceId
+      const matched = this.serviceHomes.find(s => s.serviceId === serviceId);
 
       // Prioritize matched images from Hygraph, but fallback to auto-generated local images
       const serviceImages = (matched?.images?.length) ? matched.images : (SERVICE_IMAGES[serviceId] || []);
