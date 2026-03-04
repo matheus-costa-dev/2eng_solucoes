@@ -1,0 +1,61 @@
+<nav id="main-navbar"
+    class="fixed top-0 left-0 w-full z-50 bg-brand-dark/90 backdrop-blur-md border-b border-white/10 text-white shadow-lg">
+    <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+        <a routerLink="/" class="flex items-center gap-4 h-full" (click)="closeMobileMenu()">
+            <img src="assets/2_eng_logo_sem_bg.png" alt="2_eng_logo" class="h-16 md:h-28 w-auto object-contain py-1"
+                id="logo">
+            <div class="text-lg md:text-2xl font-bold tracking-tight leading-tight">
+                2 ENG <span class="text-brand-accent">SERVIÇOS</span>
+            </div>
+        </a>
+
+        <div class="flex items-center gap-4 md:gap-8">
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex gap-8 text-sm font-medium tracking-wide">
+                <a routerLink="/" class="hover:text-brand-accent transition-colors relative group py-2">
+                    Home <span
+                        class="absolute bottom-0 left-0 w-0 h-0.5 bg-brand-accent transition-all group-hover:w-full"></span>
+                </a>
+                <a routerLink="/portfolio" routerLinkActive="text-brand-accent border-b-2 border-brand-accent"
+                    class="hover:text-brand-accent transition-colors relative group py-2">
+                    Portfólio <span
+                        class="absolute bottom-0 left-0 w-0 h-0.5 bg-brand-accent transition-all group-hover:w-full"></span>
+                </a>
+                <a routerLink="/" fragment="contato"
+                    class="hover:text-brand-accent transition-colors relative group py-2">
+                    Contato <span
+                        class="absolute bottom-0 left-0 w-0 h-0.5 bg-brand-accent transition-all group-hover:w-full"></span>
+                </a>
+            </div>
+
+            <div class="flex items-center gap-4 md:border-l md:border-white/20 md:pl-6 pl-2">
+                <button (click)="toggleTheme()"
+                    class="hover:text-brand-accent transition-colors p-2 rounded-full hover:bg-white/10 text-white"
+                    aria-label="Alternar tema">
+                    <i id="theme-icon" [ngClass]="isDarkTheme ? 'fas fa-sun' : 'fas fa-moon'" class="text-lg"></i>
+                </button>
+
+                <!-- Hamburger Button (Mobile Only) -->
+                <button (click)="toggleMobileMenu()"
+                    class="md:hidden text-white hover:text-brand-accent transition-colors p-2" aria-label="Menu">
+                    <i [ngClass]="isMobileMenuOpen ? 'fas fa-times' : 'fas fa-bars'" class="text-2xl"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    @if (isMobileMenuOpen) {
+    <div
+        class="md:hidden absolute top-20 left-0 w-full bg-brand-dark border-b border-white/10 shadow-2xl h-[calc(100vh-5rem)] flex flex-col transition-all duration-300">
+        <div class="flex flex-col py-6 px-6 gap-6 text-lg font-medium overflow-y-auto">
+            <a routerLink="/" (click)="closeMobileMenu()"
+                class="text-white hover:text-brand-accent transition-colors py-3 border-b border-white/5">Home</a>
+            <a routerLink="/portfolio" (click)="closeMobileMenu()" routerLinkActive="text-brand-accent font-bold"
+                class="text-white hover:text-brand-accent transition-colors py-3 border-b border-white/5">Portfólio</a>
+            <a routerLink="/" fragment="contato" (click)="closeMobileMenu()"
+                class="text-white hover:text-brand-accent transition-colors py-3 border-b border-white/5">Contato</a>
+        </div>
+    </div>
+    }
+</nav>
