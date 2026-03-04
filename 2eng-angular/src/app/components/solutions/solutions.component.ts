@@ -200,7 +200,7 @@ export class SolutionsComponent implements OnInit {
     const data = SERVICES_DATA[serviceId];
     if (data) {
       // Find matching dynamic data from Hygraph based on exact serviceid
-      const matched = this.serviceHomes.find(s => s.serviceid === serviceId);
+      const matched = this.serviceHomes.find(s => s.serviceId === serviceId);
 
       // Prioritize matched images from Hygraph, but fallback to auto-generated local images
       const serviceImages = (matched?.images?.length) ? matched.images : (SERVICE_IMAGES[serviceId] || []);

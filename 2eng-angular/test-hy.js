@@ -4,31 +4,31 @@ const token = 'Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6ImdjbXMtbWFpbi
 const endpoint = 'https://us-west-2.cdn.hygraph.com/content/cmlvbq7px01x107w2179avles/master';
 
 async function test() {
-    try {
-        const res = await fetch(endpoint, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': token
-            },
-            body: JSON.stringify({
-                query: `
+  try {
+    const res = await fetch(endpoint, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': token
+      },
+      body: JSON.stringify({
+        query: `
           query {
             serviceHomes {
-              serviceId
+            serviceid
               images {
                 url
               }
             }
           }
         `
-            })
-        });
-        const json = await res.json();
-        fs.writeFileSync('/tmp/hygraph-response.json', JSON.stringify(json, null, 2));
-    } catch (err) {
-        fs.writeFileSync('/tmp/hygraph-response.json', err.toString());
-    }
+      })
+    });
+    const json = await res.json();
+    fs.writeFileSync('/tmp/hygraph-response.json', JSON.stringify(json, null, 2));
+  } catch (err) {
+    fs.writeFileSync('/tmp/hygraph-response.json', err.toString());
+  }
 }
 
 test();

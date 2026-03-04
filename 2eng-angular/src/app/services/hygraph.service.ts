@@ -41,7 +41,7 @@ export interface ClientData {
 }
 
 export interface ServiceHomeData {
-  serviceid: string;
+  serviceId: string;
   images: {
     url: string;
   }[];
@@ -126,7 +126,7 @@ export class HygraphService {
     `;
     return this.http.post<any>(this.endpoint, { query }, { headers: this.headers })
       .pipe(
-        map(res => res.data.testimonials),
+        map(res => res.data?.testimonials || []),
         catchError(this.handleError)
       );
   }
@@ -139,12 +139,12 @@ export class HygraphService {
           logo {
             url
           }
-        }
+        } 
       }
     `;
     return this.http.post<any>(this.endpoint, { query }, { headers: this.headers })
       .pipe(
-        map(res => res.data.clients),
+        map(res => res.data?.clients || []),
         catchError(this.handleError)
       );
   }
@@ -158,7 +158,7 @@ export class HygraphService {
     const query = `
       query GetServiceHomes {
         serviceHomes(first: 50) {
-          serviceid
+          serviceId: serviceid
           images {
             url
           }
