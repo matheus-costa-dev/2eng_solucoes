@@ -33,7 +33,7 @@ describe('SolutionsComponent', () => {
 
     component.serviceHomes = [
       {
-        serviceId: 'obras',
+        serviceid: 'obras',
         images: [testImage]
       }
     ];

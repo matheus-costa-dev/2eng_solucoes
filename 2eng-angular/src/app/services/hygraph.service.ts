@@ -41,7 +41,7 @@ export interface ClientData {
 }
 
 export interface ServiceHomeData {
-  serviceId: string;
+  serviceid: string;
   images: {
     url: string;
   }[];
@@ -158,7 +158,7 @@ export class HygraphService {
     const query = `
       query GetServiceHomes {
         serviceHomes(first: 50) {
-          serviceId
+          serviceid
           images {
             url
           }
